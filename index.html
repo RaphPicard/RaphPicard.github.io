@@ -341,11 +341,23 @@
       <h2 class="section-title reveal reveal-delay-1" data-en="Things I've built" data-fr="Ce que j'ai construit">Things I've built</h2>
       <p class="section-subtitle reveal reveal-delay-2" data-en="From data pipelines to recommendation engines and AI agents." data-fr="Des pipelines de données aux moteurs de recommandation et agents IA.">From data pipelines to recommendation engines and AI agents.</p>
       
+      <!-- Filtres par technologie — data-en/data-fr géré par lang.js pour le bouton "All/Tout" -->
+      <div class="project-filters reveal reveal-delay-3">
+        <button class="pf-btn pf-active" data-filter="all" data-en="All" data-fr="Tout">All</button>
+        <button class="pf-btn" data-filter="python">Python</button>
+        <button class="pf-btn" data-filter="java">Java</button>
+        <button class="pf-btn" data-filter="ai">AI</button>
+        <button class="pf-btn" data-filter="web">Web</button>
+        <button class="pf-btn" data-filter="docker">Docker</button>
+        <button class="pf-btn" data-filter="data">Data</button>
+        <button class="pf-btn" data-filter="poo">POO</button>
+      </div>
+
       <!-- projects-grid : grille 2 colonnes ; la carte "featured" occupe les 2 colonnes via CSS (grid-column: span 2) -->
       <div class="projects-grid">
 
         <!-- FEATURED : projet principal en fond sombre, pleine largeur -->
-        <div class="project-card featured reveal reveal-delay-1">
+        <div class="project-card featured reveal reveal-delay-1" data-tech="python ai data">
           <div class="project-header">
             <div class="project-icon">📊</div>
             <div class="project-links">
@@ -366,7 +378,7 @@
         </div>
 
         <!-- AI Agents -->
-        <div class="project-card reveal reveal-delay-2">
+        <div class="project-card reveal reveal-delay-2" data-tech="python ai">
           <div class="project-header"><div class="project-icon">🤖</div></div>
           <div class="project-name" data-en="Multi-Agent AI System (Orchestrator / Workers)" data-fr="Système Multi-Agents IA (Orchestrateur / Workers)">Multi-Agent AI System</div>
           <div class="project-desc" data-en="Architecture of autonomous AI agents communicating via MCP and A2A protocols. An orchestrator delegates sub-tasks to specialized workers with tool calls, callbacks, and error recovery — all on top of AWS and major LLM APIs." data-fr="Architecture d'agents IA autonomes via MCP et A2A. Un orchestrateur délègue des sous-tâches à des workers spécialisés avec outils, callbacks et récupération d'erreurs — sur AWS et grandes APIs LLM.">Architecture of autonomous AI agents communicating via MCP and A2A protocols. An orchestrator delegates sub-tasks to specialized workers with tool calls, callbacks, and error recovery — all on top of AWS and major LLM APIs.</div>
@@ -374,7 +386,7 @@
         </div>
 
         <!-- MVC REST Website -->
-        <div class="project-card reveal reveal-delay-3">
+        <div class="project-card reveal reveal-delay-3" data-tech="web php docker">
           <div class="project-header">
             <div class="project-icon">🌐</div>
             <div class="project-links">
@@ -389,7 +401,7 @@
         </div>
 
         <!-- Automate -->
-        <div class="project-card reveal reveal-delay-4">
+        <div class="project-card reveal reveal-delay-4" data-tech="python">
           <div class="project-header">
             <div class="project-icon">🔤</div>
             <div class="project-links">
@@ -404,7 +416,7 @@
         </div>
 
         <!-- Space Invaders -->
-        <div class="project-card reveal reveal-delay-2">
+        <div class="project-card reveal reveal-delay-2" data-tech="python poo">
           <div class="project-header">
             <div class="project-icon">🚀</div>
             <div class="project-links">
@@ -419,7 +431,7 @@
         </div>
 
         <!-- Smart Fridge -->
-        <div class="project-card reveal reveal-delay-3">
+        <div class="project-card reveal reveal-delay-3" data-tech="team">
           <div class="project-header"><div class="project-icon">🧊</div></div>
           <div class="project-name" data-en="Smart Fridge — Startup Project" data-fr="Frigo Connecté — Projet Entrepreneurial">Smart Fridge — Startup Project</div>
           <div class="project-desc" data-en="1-year team project: co-led the design of a smart fridge detecting food, managing stock levels, and suggesting recipes. Reinforced teamwork, project management and entrepreneurial thinking." data-fr="Projet d'équipe d'1 an : co-pilotage d'un frigo intelligent détectant des aliments en gérant stocks et suggérant des recettes. A renforcé teamwork, gestion de projet et esprit entrepreneurial.">1-year team project: co-led the design of a smart fridge detecting food, managing stock levels, and suggesting recipes. Reinforced teamwork, project management and entrepreneurial thinking.</div>
@@ -585,5 +597,6 @@
   <script src="js/lang.js" defer></script>
   <script src="js/theme.js" defer></script>
   <script src="js/includes.js" defer></script>
+  <script src="js/project-filter.js" defer></script>
 </body>
 </html>
