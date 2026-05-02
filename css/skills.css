@@ -1,0 +1,43 @@
+/* ===== SKILLS ===== */
+#skills { background: var(--bg); }
+.skills-wrapper { margin-top: 3rem; }
+.skills-category { margin-bottom: 3rem; }
+.skills-cat-title {
+  font-family: var(--font-mono); font-size: 0.72rem;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--text-muted); margin-bottom: 1.25rem;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+/* Ligne horizontale après le titre de catégorie — flex: 1 la fait s'étirer jusqu'au bord */
+.skills-cat-title::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+.skills-grid {
+  display: flex; flex-wrap: wrap; gap: 0.65rem; /* flex-wrap : les tags passent à la ligne automatiquement */
+}
+/* Tag de compétence — style pill avec bordure légère */
+.skill-tag {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 0.82rem; font-weight: 500;
+  padding: 0.45rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+  cursor: default; /* empêche l'affichage du curseur "texte" sur un élément non cliquable */
+}
+.skill-tag:hover {
+  border-color: var(--accent-soft);
+  background: var(--accent-light);
+  color: var(--accent);
+  transform: translateY(-2px); /* légère élévation au survol */
+  box-shadow: var(--shadow-sm);
+}
+/* Variante "featured" pour les compétences principales — déjà colorée en bleu sans survol */
+.skill-tag.featured {
+  background: var(--accent-light);
+  border-color: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 600;
+}

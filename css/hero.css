@@ -1,0 +1,229 @@
+/* ===== HERO ===== */
+#hero {
+  /* 100vh : le hero occupe toute la hauteur de la fenêtre */
+  min-height: 100vh;
+  display: flex; align-items: center;
+  /* padding-top compense la navbar fixe pour que le contenu ne soit pas caché derrière elle */
+  padding-top: var(--nav-height);
+  padding-bottom: 4rem;
+  overflow: hidden; /* empêche les éléments flottants de créer une scrollbar horizontale */
+}
+/* Grille 2 colonnes égales pour le contenu texte + la carte visuelle */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: center;
+}
+
+/* Badge "Disponible · À partir de Juillet 2026" — pastille avec indicateur animé */
+.hero-label {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-mono); font-size: 0.75rem; font-weight: 500;
+  color: var(--status-available); letter-spacing: 0.08em;
+  background: var(--status-available-soft); border: 1px solid var(--status-available-soft);
+  padding: 0.35rem 0.85rem; border-radius: 100px; /* pill shape */
+  margin-bottom: 1.5rem;
+}
+/* Pastille verte animée (point de disponibilité) — créée via ::before sans élément HTML supplémentaire */
+.hero-label::before {
+  content: '';
+  width: 7px; height: 7px;
+  background: var(--status-available);
+  border-radius: 50%;
+  animation: pulse 2s infinite; /* clignotement discret en boucle */
+}
+/* Animation pulse : effet de respiration sur la pastille et le badge "Open to offers" */
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+.hero-name {
+  font-family: var(--font-serif);
+  /* clamp : taille fluide entre 2.8rem (mobile) et 4.5rem (desktop large) */
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  color: var(--text-primary);
+  margin-bottom: 0.35rem;
+}
+/* "Picard" en dégradé bleu — technique CSS : le texte devient transparent et laisse voir le fond dégradé */
+.hero-name em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--accent), #60A5FA);
+  -webkit-background-clip: text; /* clip le dégradé en arrière-plan sur la forme du texte */
+  -webkit-text-fill-color: transparent; /* rend le texte transparent pour révéler le dégradé */
+  background-clip: text;
+}
+.hero-role {
+  font-size: 1.15rem; font-weight: 400;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  margin-bottom: 1.75rem;
+  letter-spacing: -0.01em;
+}
+.hero-tagline {
+  font-size: 1rem; color: var(--text-secondary);
+  line-height: 1.8; margin-bottom: 2.25rem;
+  max-width: 440px;
+}
+.hero-tagline strong { color: var(--text-primary); font-weight: 600; }
+.hero-ctas {
+  display: flex; gap: 0.75rem; flex-wrap: wrap; /* flex-wrap permet au boutons de passer à la ligne sur petits écrans */
+}
+/* Bouton principal (CTA) — fond bleu avec ombre colorée pour l'effet "lifted" */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.9rem; font-weight: 600;
+  color: #fff; background: var(--accent);
+  padding: 0.8rem 1.6rem; border-radius: 10px;
+  transition: all 0.25s ease;
+  /* ombre teintée en bleu pour renforcer la couleur d'accent */
+  box-shadow: 0 4px 14px rgba(29,78,216,0.25);
+}
+.btn-primary:hover {
+  background: #1e40af;
+  box-shadow: 0 6px 20px rgba(29,78,216,0.35);
+  transform: translateY(-1px); /* légère élévation au survol */
+}
+/* Bouton secondaire — fond blanc avec bordure subtile */
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.9rem; font-weight: 500;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 0.8rem 1.6rem; border-radius: 10px;
+  transition: all 0.25s ease;
+  box-shadow: var(--shadow-sm);
+}
+.btn-secondary:hover {
+  border-color: #9CA3AF;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+.hero-socials {
+  display: flex; align-items: center; gap: 1rem;
+  margin-top: 2.5rem;
+}
+.hero-socials a {
+  display: flex; align-items: center;
+  font-size: 0.8rem; font-weight: 500;
+  color: var(--text-muted);
+  gap: 0.4rem;
+  transition: color 0.2s;
+}
+.hero-socials a:hover { color: var(--accent); }
+/* Séparateur "·" entre les liens sociaux — user-select: none l'exclut de la sélection de texte */
+.social-sep { color: var(--border); user-select: none; }
+
+/* Hero visual */
+.hero-visual {
+  display: flex; justify-content: center; align-items: center;
+  position: relative; /* contexte de positionnement pour les éléments flottants absolus */
+}
+.hero-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: var(--shadow-lg);
+  width: 100%; max-width: 400px;
+  position: relative; /* nécessaire pour que ::before soit positionné par rapport à la carte */
+}
+/* Lueur bleue sur le coin supérieur gauche de la carte — créée sans SVG ni image */
+.hero-card::before {
+  content: '';
+  position: absolute; inset: -1px; /* inset: -1px est un raccourci pour top:-1px right:-1px bottom:-1px left:-1px */
+  border-radius: 21px; /* légèrement plus grand que la carte (20+1) pour envelopper la bordure */
+  background: linear-gradient(135deg, rgba(29,78,216,0.15), transparent 60%);
+  pointer-events: none; /* ne perturbe pas les interactions avec la carte */
+}
+.hcard-header {
+  display: flex; align-items: center; gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+/* Avatar dans la hero card — rond, dégradé bleu, même structure que .nav-avatar */
+.hcard-avatar {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: linear-gradient(135deg, #1D4ED8, #60A5FA);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 1.2rem; color: #fff; font-weight: 600;
+  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 3.5px rgba(29,78,216,0.25);
+}
+.hcard-avatar img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+.hcard-info { flex: 1; } /* occupe l'espace restant entre l'avatar et le badge */
+.hcard-name { font-size: 0.95rem; font-weight: 600; }
+.hcard-title { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+/* Badge "Open to offers" — vert avec pastille pulsante pour indiquer la disponibilité */
+.hcard-badge {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  font-family: var(--font-mono); font-size: 0.68rem;
+  color: #16a34a; background: #F0FDF4; border: 1px solid #BBF7D0;
+  padding: 0.25rem 0.6rem; border-radius: 6px;
+}
+/* Pastille verte animée du badge — réutilise la même animation @keyframes pulse */
+.hcard-badge::before {
+  content: ''; width: 6px; height: 6px;
+  background: #22c55e; border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+.hcard-stat {
+  display: flex; flex-direction: column; gap: 0.75rem;
+}
+/* Ligne de stat : label à gauche, valeur à droite */
+.hcard-stat-row {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.hcard-stat-label {
+  font-size: 0.78rem; color: var(--text-muted);
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.hcard-stat-label svg { opacity: 0.6; }
+.hcard-stat-value {
+  font-size: 0.82rem; font-weight: 600; color: var(--text-primary);
+}
+/* Rangée de chips technologiques en bas de la carte */
+.hcard-tech {
+  display: flex; flex-wrap: wrap; gap: 0.4rem;
+  margin-top: 1.25rem; padding-top: 1.25rem;
+  border-top: 1px solid var(--border-subtle);
+}
+.tech-chip {
+  font-family: var(--font-mono); font-size: 0.68rem;
+  color: var(--text-secondary);
+  background: var(--bg); border: 1px solid var(--border);
+  padding: 0.2rem 0.6rem; border-radius: 6px;
+}
+/* Variante bleue pour les technos principales (Python, AI Agents, Docker) */
+.tech-chip.blue { color: var(--accent); background: var(--accent-light); border-color: var(--accent-soft); }
+
+
+/* Étiquettes flottantes autour de la carte — positionnées en absolu par rapport au conteneur parent */
+.hero-floating {
+  position: absolute;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  box-shadow: var(--shadow-md);
+  font-size: 0.78rem; font-weight: 500;
+  display: flex; align-items: center; gap: 0.5rem;
+  animation: float 3s ease-in-out infinite; /* lévitation continue en boucle */
+}
+.hero-floating.f1 { top: -20px; right: -30px; animation-delay: 0s; }   /* étiquette haute droite */
+.hero-floating.f2 { bottom: -30px; left: -30px; animation-delay: 1s; } /* étiquette basse gauche — décalée de 1s pour un mouvement asynchrone */
+.hero-floating.f3 { top: -30px; left: -30px; animation-delay: 2s; } /* étiquette haute gauche — décalée de 2s pour un mouvement asynchrone */
+/* Animation de lévitation douce — remonte de 8px puis redescend en boucle */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}

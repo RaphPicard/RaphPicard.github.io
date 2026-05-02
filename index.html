@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /> <!-- pour les caractères spéciaux -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- viewport : indispensable pour le responsive — adapte la largeur de la page à l'écran de l'appareil -->
+
+  <title>Raphaël Picard — Software & Big Data Engineer</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Portfolio de Raphaël Picard, étudiant en Software & Big Data Engineering. Découvrez mes projets, compétences et expériences." />
+
+  <!-- Open Graph (LinkedIn, Facebook) -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://raphouman.github.io/" />
+  <meta property="og:title"       content="Raphaël Picard — Software & Big Data Engineer" />
+  <meta property="og:description" content="Portfolio de Raphaël Picard, étudiant en Software & Big Data Engineering. Découvrez mes projets, compétences et expériences." />
+  <meta property="og:image"       content="https://raphouman.github.io/assets/PDP.jpg" />
+
+  <!-- Twitter Card
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Raphaël Picard — Software & Big Data Engineer" />
+  <meta name="twitter:description" content="Portfolio de Raphaël Picard, étudiant en Software & Big Data Engineering. Découvrez mes projets, compétences et expériences." />
+  <meta name="twitter:image"       content="https://raphouman.github.io/assets/PDP.jpg" /> -->
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" /> <!-- Favicon SVG : vectoriel, net à toutes les tailles (préféré aux .ico) -->
+
+  <!-- preconnect : établit la connexion DNS+TCP en avance pour les serveurs Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- preload : ordonne au navigateur de télécharger le CSS des polices EN PRIORITÉ, sans bloquer le rendu -->
+  <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" />
+
+  <!-- media="print" → chargement NON-bloquant : le navigateur télécharge ce CSS sans bloquer l'affichage -->
+  <!-- onload bascule media vers "all" une fois chargé, ce qui applique les polices en douceur (display=swap) -->
+  <link rel="stylesheet" media="print"
+        onload="this.media='all';this.onload=null"
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" />
+
+  <!-- fallback noscript : charge les polices normalement si JavaScript est désactivé -->
+  <noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" />
+  </noscript>
+
+  <!-- theme-init.js : chargé SANS defer ni async pour s'exécuter synchronement avant le CSS — applique le bon thème dès le premier rendu (anti-flash) -->
+  <script src="js/theme-init.js"></script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+
+
+
+
+
+
+
+
+<body>
+
+  <!-- ===== NAVBAR (injectée via js/includes.js) ===== -->
+  <div id="nav-placeholder"></div>
+
+  
+  <!-- ===== HERO ===== -->
+  <section id="hero">
+    <div class="container">
+      <!-- hero-grid : grille 2 colonnes (texte à gauche, carte visuelle à droite) -->
+      <div class="hero-grid">
+        <div>
+          <!-- reveal : classe déclenchant l'animation d'entrée (opacity + translateY) via IntersectionObserver -->
+          <!-- data-en/data-fr : traduit le badge de disponibilité selon la langue -->
+          <div class="hero-label reveal" data-en="Available · Starting Jan 2028" data-fr="Disponible · À partir de Janvier 2028">Available · Starting Jan 2028</div>
+          <!-- reveal-delay-1 : délai de 0.1s pour créer un effet de cascade avec les éléments voisins -->
+          <h1 class="hero-name reveal reveal-delay-1">Raphaël<br><em>Picard</em></h1>
+          <!-- em : redéfini en CSS (font-style: normal) et utilisé uniquement pour le dégradé bleu sur "Picard" -->
+          <p class="hero-role reveal reveal-delay-2" data-en="Software Engineer & Big Data · AI Enthusiast" data-fr="Ingénieur Logiciel & Big Data · Passionné d'IA">Software Engineer & Big Data · AI Enthusiast</p>
+          <p class="hero-tagline reveal reveal-delay-3">
+            <!-- Le span intérieur porte les attributs data-* pour que le JS puisse remplacer innerHTML (et interpréter <strong>) -->
+            <span data-en="Engineering Master's student at <strong>CPE Lyon</strong>, specializing in Software Design and Big Data. Passionate about building <strong>AI-powered systems</strong>, agentic workflows, and data pipelines that create real-world impact."
+                  data-fr="Étudiant ingénieur à <strong>CPE Lyon</strong>, spécialisation Conception Logicielle et Big Data. Passionné par la création de <strong>systèmes IA</strong>, les workflows agentiques et les pipelines de données à fort impact.">
+              Engineering Master's student at <strong>CPE Lyon</strong>, specializing in Software Design and Big Data. Passionate about building <strong>AI-powered systems</strong>, agentic workflows, and data pipelines that create real-world impact.
+            </span>
+          </p>
+          <div class="hero-ctas reveal reveal-delay-4">
+            <a href="#projects" class="btn-primary">
+              <!-- SVG inline : icône boîte/cube — viewBox définit l'espace de coordonnées, stroke="currentColor" hérite la couleur du texte parent -->
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/></svg>
+              <span data-en="View Projects" data-fr="Voir mes projets">View Projects</span>
+            </a>
+            <!-- href="mailto:" : ouvre le client mail natif de l'utilisateur avec l'adresse pré-remplie -->
+            <a href="mailto:raphael.picard@cpe.fr" class="btn-secondary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+              <span data-en="Get in touch" data-fr="Me contacter">Get in touch</span>
+            </a>
+          </div>
+          <div class="hero-socials reveal reveal-delay-5">
+            <!-- target="_blank" : ouvre le lien dans un nouvel onglet (liens externes) -->
+            <a href="https://github.com/Raphouman" target="_blank">
+              <!-- SVG du logo GitHub — fill="currentColor" hérite la couleur du lien parent -->
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </a>
+            <!-- social-sep : séparateur "·" visuellement exclu de la sélection de texte (user-select: none en CSS) -->
+            <span class="social-sep">·</span>
+            <a href="https://www.linkedin.com/in/raphael-picard-/" target="_blank">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+
+
+        <!-- Hero Visual Card : carte de profil animée, cachée sur mobile (display: none via @media) -->
+        <div class="hero-visual reveal reveal-delay-2">
+          <!-- Conteneur relatif nécessaire pour positionner les éléments flottants en absolu -->
+          <div style="position:relative;width:100%;max-width:420px;">
+            <div class="hero-card">
+              <div class="hcard-header">
+  
+                <div class="hcard-avatar">
+                <!-- Photo de profil : remplacer le span par -->
+                <img src="assets/PDP.jpg" alt="Raphaël Picard">
+                <!-- <span>RP</span> -->
+                </div>
+                <div class="hcard-info">
+                  <div class="hcard-name">Raphaël Picard</div>
+                  <div class="hcard-title">Software Eng. &amp; Big Data Student</div>
+                  <!-- &amp; : entité HTML pour le caractère "&" (évite de casser le parsing HTML) -->
+                </div>
+                <!-- Badge "Open to offers" avec pastille verte animée (définie via ::before en CSS) -->
+                <div class="hcard-badge" data-en="Open to offers" data-fr="Ouvert aux offres">Open to offers</div>
+              </div>
+              <!-- Statistiques de la carte : stage, école, spécialisation, certification -->
+              <div class="hcard-stat">
+                <div class="hcard-stat-row">
+                  <span class="hcard-stat-label">🌏 <span data-en="Next stage" data-fr="Prochain stage">Next stage</span></span>
+                  <span class="hcard-stat-value">Mitsubishi Fuso · Japan 🇯🇵</span>
+                </div>
+                <div class="hcard-stat-row">
+                  <span class="hcard-stat-label">🎓 <span data-en="School" data-fr="École">School</span></span>
+                  <span class="hcard-stat-value">CPE Lyon — 4CLBD</span>
+                </div>
+                <div class="hcard-stat-row">
+                  <span class="hcard-stat-label">📊 <span data-en="Specialization" data-fr="Spécialisation">Specialization</span></span>
+                  <span class="hcard-stat-value">Software Design &amp; Big Data</span>
+                </div>
+                <div class="hcard-stat-row">
+                  <span class="hcard-stat-label">☁️ AWS</span>
+                  <span class="hcard-stat-value" data-en="Certification in progress" data-fr="Certification en cours">Certification in progress</span>
+                </div>
+              </div>
+              <!-- Chips de technologies : class="blue" pour les technos principales (style accentué) -->
+              <div class="hcard-tech">
+                <span class="tech-chip blue">Python</span>
+                <span class="tech-chip blue">AI Agents (MCP/A2A)</span>
+                <span class="tech-chip">Docker</span>
+                <span class="tech-chip blue">SQL</span>
+                <span class="tech-chip">PHP + Twig</span>
+                <span class="tech-chip">MVC REST</span>
+                <span class="tech-chip blue">Java</span>
+                <span class="tech-chip">Data Mining</span>
+              </div>
+            </div>
+            <!-- Étiquettes flottantes positionnées en absolu autour de la carte (animation CSS "float") -->
+            <div class="hero-floating f1">🤖 <span data-en="AI Agent builder" data-fr="Développeur agents IA">AI Agent builder</span></div>
+            <div class="hero-floating f2">📊 <span data-en="Data Mining · KMeans" data-fr="Data Mining · KMeans">Data Mining · KMeans</span></div>
+            <div class="hero-floating f3">☁️ <span data-en="AWS Cloud Practitioner" data-fr="AWS Cloud Practitioner">AWS Cloud Practitioner</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+  <!-- Séparateur visuel entre sections : dégradé horizontal transparent→gris→transparent -->
+  <div class="section-divider"></div>
+
+
+
+
+
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about">
+    <div class="container">
+      <!-- about-grid : grille 2 colonnes asymétriques (highlights à gauche, texte+méta à droite) -->
+      <div class="about-grid">
+        <div>
+          <!-- section-eyebrow : label monospace en majuscules avec trait bleu (::before en CSS) -->
+          <p class="section-eyebrow reveal" data-en="About me" data-fr="À propos">About me</p>
+          <h2 class="section-title reveal reveal-delay-1" data-en="Curious engineer, driven by data &amp; AI" data-fr="Ingénieur curieux, animé par la data &amp; l'IA">Curious engineer,<br>driven by data &amp; AI</h2>
+          <!-- Liste de faits saillants : stage Japon, agents IA, AWS, langues -->
+          <div class="about-highlights">
+            <!-- Chaque highlight-item : icône + titre + description, glisse légèrement à droite au survol -->
+            <div class="highlight-item reveal reveal-delay-2">
+              <div class="highlight-icon">🇯🇵</div>
+              <div class="highlight-text">
+                <h4 data-en="Mitsubishi Fuso · Kawasaki, Japan" data-fr="Mitsubishi Fuso · Kawasaki, Japon">Mitsubishi Fuso · Kawasaki, Japan</h4>
+                <p data-en="Software engineering internship in the digitalization team · July 2026 – Feb 2027" data-fr="Stage ingénierie logicielle dans l'équipe digitalisation · Juil 2026 – Fév 2027">Software engineering internship in the digitalization team · July 2026 – Feb 2027</p>
+              </div>
+            </div>
+            <div class="highlight-item reveal reveal-delay-3">
+              <div class="highlight-icon">🤖</div>
+              <div class="highlight-text">
+                <h4 data-en="AI Agent enthusiast" data-fr="Passionné d'agents IA">AI Agent enthusiast</h4>
+                <p data-en="Building multi-agent systems, orchestrators, MCP &amp; A2A protocols, AWS tools" data-fr="Construction de systèmes multi-agents, orchestrateurs, protocoles MCP &amp; A2A, AWS">Building multi-agent systems, orchestrators, MCP &amp; A2A protocols, AWS tools</p>
+              </div>
+            </div>
+            <div class="highlight-item reveal reveal-delay-4">
+              <div class="highlight-icon">☁️</div>
+              <div class="highlight-text">
+                <h4>AWS Cloud Practitioner</h4>
+                <p data-en="Certification in progress — cloud architecture, serverless, data services" data-fr="Certification en cours — architecture cloud, serverless, services data">Certification in progress — cloud architecture, serverless, data services</p>
+              </div>
+            </div>
+            <div class="highlight-item reveal reveal-delay-5">
+              <div class="highlight-icon">🌍</div>
+              <div class="highlight-text">
+                <h4 data-en="World traveler &amp; polyglot" data-fr="Grand voyageur &amp; polyglotte">World traveler &amp; polyglot</h4>
+                <p data-en="French (native), English (C1), Spanish (B1), JSL (A2), learning Japanese" data-fr="Français (natif), Anglais (C1), Espagnol (B1), LSF (A2), apprentissage Japonais">French (native), English (C1), Spanish (B1), JSL (A2), learning Japanese</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <!-- Paragraphes biographiques — data-en/data-fr portés directement sur le <p> car le contenu est du texte pur (sauf <strong>) -->
+          <div class="about-content reveal reveal-delay-1">
+            <p data-en="I'm a 4th-year engineering student at <strong>CPE Lyon</strong> (top French digital science school), specializing in Software Design and Big Data. I'm genuinely passionate about how software, data, and AI are reshaping the future." data-fr="Je suis étudiant ingénieur en 4ème année à <strong>CPE Lyon</strong> (top école française en sciences numériques), spécialisé en Conception Logicielle et Big Data. Je suis vraiment passionné par la façon dont le logiciel, la data et l'IA reconfigurent le futur.">I'm a 4th-year engineering student at <strong>CPE Lyon</strong> (top French digital science school), specializing in Software Design and Big Data. I'm genuinely passionate about how software, data, and AI are reshaping the future.</p>
+            <p data-en="Beyond academics, I build <strong>AI agents and multi-agent pipelines</strong> — experimenting with orchestrator/worker patterns, MCP and A2A protocols, callback architectures, and AWS integrations. I see AI not just as a tool, but as a new programming paradigm." data-fr="Au-delà des cours, je construis des <strong>agents IA et des pipelines multi-agents</strong> — j'expérimente des patterns orchestrateur/worker, les protocoles MCP &amp; A2A, les architectures callback, et les intégrations AWS. Je vois l'IA comme un nouveau paradigme.">Beyond academics, I build <strong>AI agents and multi-agent pipelines</strong> — experimenting with orchestrator/worker patterns, MCP and A2A protocols, callback architectures, and AWS integrations. I see AI not just as a tool, but as a new programming paradigm.</p>
+            <p data-en="My experience in hospitality — bartender and youth activity leader — built strong interpersonal skills and resilience that complement my technical expertise perfectly." data-fr="Mon expérience en hôtellerie — barman et animateur jeunesse — a développé de solides compétences interpersonnelles et une résilience qui complètent parfaitement mon expertise technique.">My experience in hospitality — bartender and youth activity leader — built strong interpersonal skills and resilience that complement my technical expertise perfectly.</p>
+          </div>
+          <!-- Grille 2×2 de métadonnées rapides (localisation, disponibilité, formation, sports) -->
+          <div class="about-meta reveal reveal-delay-2">
+            <div class="meta-item">
+              <div class="label" data-en="Location" data-fr="Localisation">Location</div>
+              <div class="value">📍 Lyon, France</div>
+            </div>
+            <div class="meta-item-available">
+              <div class="label" data-en="Availability" data-fr="Disponibilité">Availability</div>
+              <div class="value">🗓 Jan 2028</div>
+            </div>
+            <div class="meta-item">
+              <div class="label" data-en="Study" data-fr="Formation">Study</div>
+              <div class="value">🎓 CPE Lyon · Master's</div>
+            </div>
+            <div class="meta-item">
+              <div class="label">Sports</div>
+              <div class="value">🏐 🏂 🎾 ⚽️</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== SKILLS ===== -->
+  <section id="skills">
+    <div class="container">
+      <p class="section-eyebrow reveal" data-en="Technical skills" data-fr="Compétences techniques">Technical skills</p>
+      <h2 class="section-title reveal reveal-delay-1" data-en="What I work with" data-fr="Ce avec quoi je travaille">What I work with</h2>
+      <p class="section-subtitle reveal reveal-delay-2" data-en="A mix of languages, frameworks, tools and platforms I use to build things." data-fr="Un mélange de langages, frameworks, outils et plateformes que j'utilise.">A mix of languages, frameworks, tools and platforms I use to build things.</p>
+      <div class="skills-wrapper">
+        <!-- Chaque skills-category : titre de catégorie + grille de tags -->
+        
+        <div class="skills-category reveal reveal-delay-1">
+          <div class="skills-cat-title" data-en="Languages" data-fr="Langages">Languages</div>
+          <div class="skills-grid">
+            <span class="skill-tag featured">Python</span>
+            <span class="skill-tag featured">SQL</span>
+            <span class="skill-tag featured">Java</span>
+            <span class="skill-tag">C</span>
+            <span class="skill-tag">Bash</span>
+            <span class="skill-tag">VHDL</span>
+            <span class="skill-tag">HTML / CSS / JS</span>
+            <span class="skill-tag">PHP (MVC + REST)</span>
+          </div>
+        </div>
+        <div class="skills-category reveal reveal-delay-2">
+          <div class="skills-cat-title" data-en="Data &amp; Infrastructure" data-fr="Données &amp; Infrastructure">Data &amp; Infrastructure</div>
+          <div class="skills-grid">
+            <span class="skill-tag featured">Docker &amp; Docker Compose</span>
+            <span class="skill-tag">PostgreSQL / pgAdmin</span>
+            <span class="skill-tag featured">MySQL</span>
+            <span class="skill-tag">Redis</span>
+            <span class="skill-tag">pandas</span>
+            <span class="skill-tag">NumPy</span>
+            <span class="skill-tag">matplotlib</span>
+            <span class="skill-tag featured">Linux CLI</span>
+            <span class="skill-tag">Git / GitHub</span>
+          </div>
+        </div>
+        <div class="skills-category reveal reveal-delay-3">
+          <div class="skills-cat-title" data-en="AI &amp; Machine Learning" data-fr="IA &amp; Machine Learning">AI &amp; Machine Learning</div>
+          <div class="skills-grid">
+            <!-- skill-tag featured : variante bleue pour les compétences principales (déjà colorée sans survol) -->
+            <span class="skill-tag featured">🤖 AI Agents (Orchestrator / Worker)</span>
+            <span class="skill-tag">MCP Protocol</span>
+            <span class="skill-tag">A2A Protocol</span>
+            <span class="skill-tag">AWS (in progress)</span>
+            <span class="skill-tag featured">Claude API</span>
+            <span class="skill-tag">Callbacks &amp; Tools</span>
+            <span class="skill-tag featured">Data Mining</span>
+            <span class="skill-tag">KMeans / MiniBatchKMeans</span>
+            <span class="skill-tag">Random Forest</span>
+            <span class="skill-tag">scikit-learn</span>
+            <span class="skill-tag">Jupyter Notebooks</span>
+          </div>
+        </div>
+        <div class="skills-category reveal reveal-delay-4">
+          <div class="skills-cat-title" data-en="Soft Skills" data-fr="Compétences transverses">Soft Skills</div>
+          <div class="skills-grid">
+            <span class="skill-tag featured">Emotional Intelligence</span>
+            <span class="skill-tag">Team Spirit</span>
+            <span class="skill-tag featured">Self-motivated</span>
+            <span class="skill-tag">Problem-solving</span>
+            <span class="skill-tag featured">Adaptability</span>
+            <span class="skill-tag">Resilience</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+
+
+
+
+  <!-- ===== PROJECTS ===== -->
+  <section id="projects">
+    <div class="container">
+      <p class="section-eyebrow reveal" data-en="Projects" data-fr="Projets">Projects</p>
+      <h2 class="section-title reveal reveal-delay-1" data-en="Things I've built" data-fr="Ce que j'ai construit">Things I've built</h2>
+      <p class="section-subtitle reveal reveal-delay-2" data-en="From data pipelines to recommendation engines and AI agents." data-fr="Des pipelines de données aux moteurs de recommandation et agents IA.">From data pipelines to recommendation engines and AI agents.</p>
+      
+      <!-- projects-grid : grille 2 colonnes ; la carte "featured" occupe les 2 colonnes via CSS (grid-column: span 2) -->
+      <div class="projects-grid">
+
+        <!-- FEATURED : projet principal en fond sombre, pleine largeur -->
+        <div class="project-card featured reveal reveal-delay-1">
+          <div class="project-header">
+            <div class="project-icon">📊</div>
+            <div class="project-links">
+              <!-- title="GitHub" : tooltip affiché au survol du bouton icône -->
+              <a href="https://github.com/Raphouman" target="_blank" class="project-link" title="GitHub">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              </a>
+            </div>
+          </div>
+          <!-- Badge doré indiquant qu'il s'agit d'un projet académique -->
+          <div class="project-highlight-badge">⭐ <span data-en="Academic Project · CPE Lyon 2026" data-fr="Projet Académique · CPE Lyon 2026">Academic Project · CPE Lyon 2026</span></div>
+          <div class="project-name" data-en="Image Data Mining Pipeline &amp; Recommendation System" data-fr="Pipeline Data Mining d'Images &amp; Système de Recommandation">Image Data Mining Pipeline &amp; Recommendation System</div>
+          <div class="project-desc" data-en="End-to-end data science pipeline: 200 images collected via Unsplash API → feature extraction (KMeans color clustering, orientation, size) → user preference profiling → content-based recommendation with Random Forest. Full unit test suite included." data-fr="Pipeline data science complet : 200 images via l'API Unsplash → extraction de features (KMeans couleurs, orientation, taille) → profilage des préférences → recommandation avec Random Forest. Suite de tests unitaires complète incluse.">End-to-end data science pipeline: 200 images collected via Unsplash API → feature extraction (KMeans color clustering, orientation, size) → user preference profiling → content-based recommendation with Random Forest. Full unit test suite included.</div>
+          <!-- Tags de technologies : police monospace pour imiter le style "code" -->
+          <div class="project-tech">
+            <span>Python</span><span>scikit-learn</span><span>KMeans</span><span>Random Forest</span><span>pandas</span><span>NumPy</span><span>matplotlib</span><span>Pillow</span><span>Unsplash API</span>
+          </div>
+        </div>
+
+        <!-- AI Agents -->
+        <div class="project-card reveal reveal-delay-2">
+          <div class="project-header"><div class="project-icon">🤖</div></div>
+          <div class="project-name" data-en="Multi-Agent AI System (Orchestrator / Workers)" data-fr="Système Multi-Agents IA (Orchestrateur / Workers)">Multi-Agent AI System</div>
+          <div class="project-desc" data-en="Architecture of autonomous AI agents communicating via MCP and A2A protocols. An orchestrator delegates sub-tasks to specialized workers with tool calls, callbacks, and error recovery — all on top of AWS and major LLM APIs." data-fr="Architecture d'agents IA autonomes via MCP et A2A. Un orchestrateur délègue des sous-tâches à des workers spécialisés avec outils, callbacks et récupération d'erreurs — sur AWS et grandes APIs LLM.">Architecture of autonomous AI agents communicating via MCP and A2A protocols. An orchestrator delegates sub-tasks to specialized workers with tool calls, callbacks, and error recovery — all on top of AWS and major LLM APIs.</div>
+          <div class="project-tech"><span>Python</span><span>MCP</span><span>A2A</span><span>AWS</span><span>OpenAI API</span><span>Claude API</span></div>
+        </div>
+
+        <!-- MVC REST Website -->
+        <div class="project-card reveal reveal-delay-3">
+          <div class="project-header">
+            <div class="project-icon">🌐</div>
+            <div class="project-links">
+              <a href="https://github.com/Raphouman/WEBSITE_MVC_API-REST" target="_blank" class="project-link">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="project-name">RESTful MVC Website</div>
+          <div class="project-desc" data-en="Full-stack website with a proper MVC architecture and RESTful API. Clean separation between Model, View, and Controller. Dockerized with PHP, MySQL and Nginx." data-fr="Site web full-stack avec architecture MVC rigoureuse et API RESTful. Séparation nette entre Model, View et Controller. Dockerisé avec PHP, MySQL et Nginx.">Full-stack website with a proper MVC architecture and RESTful API. Clean separation between Model, View, and Controller. Dockerized with PHP, MySQL and Nginx.</div>
+          <div class="project-tech"><span>PHP</span><span>MySQL</span><span>Docker</span><span>REST API</span><span>MVC</span></div>
+        </div>
+
+        <!-- Automate -->
+        <div class="project-card reveal reveal-delay-4">
+          <div class="project-header">
+            <div class="project-icon">🔤</div>
+            <div class="project-links">
+              <a href="https://github.com/Raphouman/automate" target="_blank" class="project-link">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="project-name" data-en="Syntax Validator Automaton" data-fr="Automate de Validation Syntaxique">Syntax Validator Automaton</div>
+          <div class="project-desc" data-en="Python implementation of a finite automaton checking whether a sentence respects grammatical syntax rules. Built from scratch using formal language theory and state machine patterns." data-fr="Implémentation Python d'un automate fini vérifiant si une phrase respecte les règles syntaxiques. Construit from scratch avec la théorie des langages formels et les patterns de machines à états.">Python implementation of a finite automaton checking whether a sentence respects grammatical syntax rules. Built from scratch using formal language theory and state machine patterns.</div>
+          <div class="project-tech"><span>Python</span><span>Formal Languages</span><span>State Machines</span><span>OOP</span></div>
+        </div>
+
+        <!-- Space Invaders -->
+        <div class="project-card reveal reveal-delay-2">
+          <div class="project-header">
+            <div class="project-icon">🚀</div>
+            <div class="project-links">
+              <a href="https://github.com/Raphouman/SpaceInvaders" target="_blank" class="project-link">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="project-name">Space Invaders</div>
+          <div class="project-desc" data-en="Classic Space Invaders built in Python with Pygame. My first complete game — implementing game loops, collision detection, sprite management and scoring." data-fr="Space Invaders classique en Python avec Pygame. Mon premier jeu complet — boucle de jeu, détection de collisions, gestion des sprites et score.">Classic Space Invaders built in Python with Pygame. My first complete game — implementing game loops, collision detection, sprite management and scoring.</div>
+          <div class="project-tech"><span>Python</span><span>Pygame</span><span>OOP</span><span>Game Loop</span></div>
+        </div>
+
+        <!-- Smart Fridge -->
+        <div class="project-card reveal reveal-delay-3">
+          <div class="project-header"><div class="project-icon">🧊</div></div>
+          <div class="project-name" data-en="Smart Fridge — Startup Project" data-fr="Frigo Connecté — Projet Entrepreneurial">Smart Fridge — Startup Project</div>
+          <div class="project-desc" data-en="1-year team project: co-led the design of a smart fridge detecting food, managing stock levels, and suggesting recipes. Reinforced teamwork, project management and entrepreneurial thinking." data-fr="Projet d'équipe d'1 an : co-pilotage d'un frigo intelligent détectant des aliments en gérant stocks et suggérant des recettes. A renforcé teamwork, gestion de projet et esprit entrepreneurial.">1-year team project: co-led the design of a smart fridge detecting food, managing stock levels, and suggesting recipes. Reinforced teamwork, project management and entrepreneurial thinking.</div>
+          <div class="project-tech"><span>Python</span><span>Database</span><span>Team Project</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+  <div class="section-divider"></div>
+
+
+
+
+
+  <!-- ===== EXPERIENCE ===== -->
+  <section id="experience">
+    <div class="container">
+      <p class="section-eyebrow reveal" data-en="Experience &amp; Education" data-fr="Expérience &amp; Formation">Experience &amp; Education</p>
+      <h2 class="section-title reveal reveal-delay-1" data-en="My journey so far" data-fr="Mon parcours">My journey so far</h2>
+
+      <!-- timeline : liste chronologique avec une ligne verticale CSS en arrière-plan (::before) -->
+      <div class="timeline">
+        <!-- timeline-item current : classe "current" → fond bleu pâle + bordure accentuée (CSS) -->
+        <div class="timeline-item current reveal reveal-delay-1">
+          <!-- timeline-dot : cercle positionné sur la ligne verticale, z-index > ligne -->
+          <div class="timeline-dot">🇯🇵</div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-role" data-en="Software Engineering Intern — Digitalization Team" data-fr="Stagiaire Ingénieur Logiciel — Équipe Digitalisation">Software Engineering Intern — Digitalization Team</div>
+                <!-- timeline-org : affiché en bleu accent pour distinguer l'entreprise du rôle -->
+                <div class="timeline-org">Mitsubishi Fuso Truck and Bus Corporation · Kawasaki, Japan</div>
+              </div>
+              <!-- white-space: nowrap en CSS empêche la date de casser sur plusieurs lignes -->
+              <div class="timeline-date">Jul 2026 → Feb 2027</div>
+            </div>
+            <!-- ul sans list-style — le préfixe "↳" est ajouté via CSS (li::before) -->
+            <ul class="timeline-desc">
+              <li data-en="Software development within the digitalization team of a major automotive group" data-fr="Développement logiciel au sein de l'équipe digitalisation d'un grand groupe automobile">Software development within the digitalization team of a major automotive group</li>
+              <li data-en="International experience in Japan — immersion in tech innovation culture" data-fr="Expérience internationale au Japon — immersion dans la culture d'innovation tech">International experience in Japan — immersion in tech innovation culture</li>
+            </ul>
+            <div class="timeline-tags"><span>Software Development</span><span>Japan</span><span>Digitalization</span><span>Automotive</span></div>
+          </div>
+        </div>
+        <div class="timeline-item reveal reveal-delay-2">
+          <div class="timeline-dot">🎓</div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-role" data-en="Master's in Computer Science — Software Design &amp; Big Data" data-fr="Master Informatique — Conception Logicielle &amp; Big Data">Master's in CS — Software Design &amp; Big Data</div>
+                <div class="timeline-org">CPE Lyon — 4CLBD</div>
+              </div>
+              <div class="timeline-date">2024 → 2028</div>
+            </div>
+            <ul class="timeline-desc">
+              <li data-en="OOP &amp; Design Patterns, Data Mining, Databases &amp; IS Architecture, System Administration" data-fr="POO &amp; Design Patterns, Data Mining, Bases de données &amp; Architecture SI, Administration Système">OOP &amp; Design Patterns, Data Mining, Databases &amp; IS Architecture, System Administration</li>
+              <li data-en="Internet Technologies (Advanced), Dynamic Web, Electronics, Image Processing" data-fr="Technologies Internet Avancées, Web Dynamique, Électronique, Traitement d'Images">Internet Technologies (Advanced), Dynamic Web, Electronics, Image Processing</li>
+              <li data-en="Emotional Intelligence specialization" data-fr="Spécialisation Intelligence Émotionnelle">Emotional Intelligence specialization</li>
+            </ul>
+            <div class="timeline-tags"><span>Python</span><span>Big Data</span><span>Docker</span><span>Java</span><span>SQL</span><span>PHP + Twig</span></div>
+          </div>
+        </div>
+        <div class="timeline-item reveal reveal-delay-3">
+          <div class="timeline-dot">🏨</div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-role" data-en="Multi-skilled Employee — Bartender &amp; Youth Activity Leader" data-fr="Employé Polyvalent — Barman &amp; Animateur Jeunesse">Multi-skilled Employee — Bartender &amp; Youth Leader</div>
+                <div class="timeline-org">Kallisterra · France</div>
+              </div>
+              <div class="timeline-date">2023 → 2025</div>
+            </div>
+            <ul class="timeline-desc">
+              <li data-en="Learned bartending entirely on the job, managed cash and bar operations in a busy holiday club" data-fr="Apprentissage du métier de barman, gestion de caisse et du bar dans un club de vacances">Learned bartending entirely on the job, managed cash and bar operations in a busy holiday club</li>
+              <li data-en="Planned and delivered creative programs for children (3–18) in a multicultural environment" data-fr="Planification et animation de programmes créatifs pour enfants (3-18 ans) en environnement multiculturel">Planned and delivered creative programs for children (3–18) in a multicultural environment</li>
+            </ul>
+            <div class="timeline-tags"><span>Leadership</span><span>Communication</span><span>Adaptability</span></div>
+          </div>
+        </div>
+        <div class="timeline-item reveal reveal-delay-4">
+          <div class="timeline-dot">📐</div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <div>
+                <div class="timeline-role" data-en="Preparatory Classes (CPGE) — Mathematics &amp; Physics" data-fr="Classes Préparatoires (CPGE) — Mathématiques &amp; Physique">Preparatory Classes (CPGE) — Maths &amp; Physics</div>
+                <div class="timeline-org">Institution des Chartreux · Lyon</div>
+              </div>
+              <div class="timeline-date">2022 → 2024</div>
+            </div>
+            <ul class="timeline-desc">
+              <li data-en="2-year intensive higher education program in mathematics and physics, associated to CPE Lyon" data-fr="Programme de 2 ans d'enseignement supérieur intensif en mathématiques et physique, associé à CPE Lyon">2-year intensive higher education program in mathematics and physics, associated to CPE Lyon</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <div class="section-divider"></div>
+
+
+
+
+
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact">
+    <div class="container">
+      <!-- contact-wrapper : centré et limité à 680px de large pour une meilleure lisibilité -->
+      <div class="contact-wrapper">
+        <!-- style inline justify-content:center pour aligner le label eyebrow au centre (exception à la règle CSS générale) -->
+        <p class="section-eyebrow reveal" style="justify-content:center" data-en="Contact" data-fr="Contact">Contact</p>
+        <h2 class="section-title reveal reveal-delay-1" style="text-align:center" data-en="Let's build something together" data-fr="Construisons quelque chose ensemble">Let's build something<br>together</h2>
+        <!-- contact-card : carte centrée avec lueur décorative bleue (::before en CSS) -->
+        <div class="contact-card reveal reveal-delay-2">
+          <p class="contact-cta-text" data-en="Whether you have a project in mind, a role to discuss, or just want to talk about AI and data engineering — my inbox is always open." data-fr="Que vous ayez un projet, un poste à discuter, ou que vous vouliez parler d'IA et d'ingénierie des données — ma boîte mail est toujours ouverte.">Whether you have a project in mind, a role to discuss, or just want to talk about AI and data engineering — my inbox is always open.</p>
+          <!-- justify-content:center pour centrer le lien email -->
+          <div style="display:flex;justify-content:center">
+            <!-- contact-email : stylisé comme un champ en lecture seule, clic ouvre le client mail -->
+            <a href="mailto:raphael.picard@cpe.fr" class="contact-email">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+              raphael.picard@cpe.fr
+            </a>
+          </div>
+          <!-- Liens sociaux secondaires (GitHub, LinkedIn) sous l'adresse email -->
+          <div class="contact-links">
+            <a href="https://github.com/Raphouman" target="_blank">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/raphael-picard-/" target="_blank">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+  <!-- ===== FOOTER (injecté via js/includes.js) ===== -->
+  <div id="footer-placeholder"></div>
+
+
+
+
+
+  <script src="js/scroll-reveal.js" defer></script>
+  <script src="js/nav.js" defer></script>
+  <script src="js/lang.js" defer></script>
+  <script src="js/theme.js" defer></script>
+  <script src="js/includes.js" defer></script>
+</body>
+</html>

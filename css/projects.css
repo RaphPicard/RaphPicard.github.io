@@ -1,0 +1,100 @@
+/* ===== PROJECTS ===== */
+#projects { background: var(--bg); }
+/* Grille 2 colonnes — la carte "featured" prendra les 2 colonnes via grid-column: span 2 */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  display: flex; flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+  position: relative; overflow: hidden; /* overflow: hidden coupe la barre colorée ::before aux coins arrondis */
+}
+/* Barre colorée en haut de la carte — invisible par défaut, apparaît au survol */
+.project-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--accent), #60A5FA);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.project-card:hover {
+  border-color: transparent; /* supprime la bordure grise pour ne garder que l'ombre */
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+.project-card:hover::before { opacity: 1; } /* révèle la barre bleue en haut au survol */
+/* Carte "featured" : occupe les 2 colonnes de la grille avec un fond sombre */
+.project-card.featured {
+  grid-column: span 2; /* s'étend sur les 2 colonnes de .projects-grid */
+  background: linear-gradient(145deg, #0D1117 0%, #1e293b 100%); /* fond dark pour contraster avec le reste */
+  border-color: #334155;
+  color: #fff;
+}
+/* Adaptations des couleurs de texte pour le fond sombre de la carte featured */
+.project-card.featured .project-desc { color: #94a3b8; }
+.project-card.featured .project-name { color: #fff; }
+.project-card.featured .project-tech span {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.15);
+  color: #cbd5e1;
+}
+.project-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 1rem;
+}
+/* Icône carrée du projet — fond bleu pâle avec emoji */
+.project-icon {
+  width: 42px; height: 42px;
+  border-radius: 10px; font-size: 1.25rem;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--accent-light); flex-shrink: 0;
+}
+.project-card.featured .project-icon { background: rgba(29,78,216,0.2); } /* fond bleu semi-transparent sur fond sombre */
+.project-links { display: flex; gap: 0.5rem; }
+/* Bouton carré menant vers le dépôt GitHub du projet */
+.project-link {
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border); border-radius: 8px;
+  color: var(--text-muted); font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+.project-link:hover { color: var(--accent); border-color: var(--accent); }
+/* Variantes de couleur pour les liens de la carte featured (fond sombre) */
+.project-card.featured .project-link { border-color: #334155; color: #94a3b8; }
+.project-card.featured .project-link:hover { border-color: #60A5FA; color: #60A5FA; }
+.project-name {
+  font-size: 1.05rem; font-weight: 600;
+  color: var(--text-primary); margin-bottom: 0.5rem;
+}
+.project-desc {
+  font-size: 0.875rem; color: var(--text-secondary);
+  line-height: 1.7; flex: 1; /* flex: 1 pousse les tags technos en bas de la carte, quelle que soit la hauteur */
+  margin-bottom: 1.25rem;
+}
+.project-tech {
+  display: flex; flex-wrap: wrap; gap: 0.4rem;
+}
+/* Tags des technologies utilisées dans chaque projet */
+.project-tech span {
+  font-family: var(--font-mono); font-size: 0.67rem;
+  padding: 0.2rem 0.55rem; border-radius: 5px;
+  background: var(--bg); border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+/* Badge doré "Academic Project" sur la carte featured */
+.project-highlight-badge {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  font-family: var(--font-mono); font-size: 0.65rem;
+  color: #f59e0b; background: rgba(245,158,11,0.1);
+  border: 1px solid rgba(245,158,11,0.2);
+  padding: 0.2rem 0.55rem; border-radius: 5px;
+  margin-bottom: 0.75rem; margin-top: -0.25rem;
+}

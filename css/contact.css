@@ -1,0 +1,69 @@
+/* ===== CONTACT ===== */
+#contact {
+  background: var(--bg);
+  text-align: center;
+}
+/* Centrage de la section contact avec une largeur maximale réduite */
+.contact-wrapper {
+  max-width: 680px; margin: 0 auto;
+}
+.contact-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 3.5rem;
+  margin-top: 2.5rem;
+  box-shadow: var(--shadow-md);
+  position: relative; overflow: hidden; /* overflow: hidden coupe la lueur ::before aux bords arrondis */
+}
+/* Lueur décorative bleue dans le coin supérieur droit de la carte contact */
+.contact-card::before {
+  content: '';
+  position: absolute; top: -80px; right: -80px;
+  width: 280px; height: 280px;
+  /* radial-gradient : cercle de lumière bleue qui s'estompe vers le bord */
+  background: radial-gradient(circle, rgba(29,78,216,0.08) 0%, transparent 70%);
+}
+/* Lien email stylisé comme un bouton avec fond gris très léger */
+.contact-email {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-mono); font-size: 0.95rem; font-weight: 500;
+  color: var(--text-primary); padding: 0.75rem 1.25rem;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 10px; margin: 1.5rem auto;
+  transition: all 0.2s;
+}
+.contact-email:hover { border-color: var(--accent); color: var(--accent); }
+.contact-links {
+  display: flex; justify-content: center; gap: 0.75rem;
+  flex-wrap: wrap; margin-top: 1.5rem;
+}
+.contact-links a {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.875rem; font-weight: 500;
+  padding: 0.7rem 1.25rem;
+  border: 1px solid var(--border); border-radius: 10px;
+  color: var(--text-secondary); background: var(--bg);
+  transition: all 0.2s ease;
+}
+.contact-links a:hover {
+  border-color: var(--accent-soft);
+  background: var(--accent-light);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+.contact-cta-text {
+  color: var(--text-secondary); font-size: 1rem; line-height: 1.8;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+footer p {
+  font-family: var(--font-mono); font-size: 0.72rem;
+  color: var(--text-muted); letter-spacing: 0.04em;
+}
+footer a { color: var(--accent); }

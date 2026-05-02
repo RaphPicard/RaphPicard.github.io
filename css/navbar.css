@@ -1,0 +1,122 @@
+/* ===== NAVBAR ===== */
+nav {
+  /* position: fixed — la navbar reste visible en permanence en haut de la fenêtre */
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--nav-height);
+  /* fond semi-transparent pour laisser deviner le contenu derrière lors du scroll */
+  background: rgba(247, 246, 243, 0.85);
+  /* backdrop-filter : effet "verre dépoli" — floute et sature le contenu visible en arrière-plan */
+  backdrop-filter: blur(20px) saturate(180%);
+  /* préfixe -webkit- requis pour Safari qui ne reconnaît pas encore la propriété sans préfixe */
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+  z-index: 1000; /* valeur élevée pour rester au-dessus de tout le contenu de la page */
+  display: flex; align-items: center;
+  /* clamp(min, préféré, max) : padding responsive sans media query — s'adapte à la largeur du viewport */
+  padding: 0 clamp(1.5rem, 5vw, 3rem);
+}
+.nav-inner {
+  width: 100%; max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+}
+/* Lien de l'avatar — position: fixed pour le coller à gauche de l'écran, hors du flux navbar */
+/* width: auto (par défaut) — NE PAS mettre width:100% sinon le lien couvre tout l'écran */
+.nav-avatar-link {
+  position: fixed; left: 20px; top: 50%; transform: translateY(-50%);
+  z-index: 1100; display: block;
+}
+.nav-avatar-link:focus {
+  outline: 3px solid var(--accent); outline-offset: 4px; border-radius: 50%;
+}
+/* Avatar rond dans la navbar — placeholder initiales RP en attendant la PDP */
+.nav-avatar {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1D4ED8, #60A5FA);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 1.1rem; font-weight: 600; letter-spacing: 0.02em;
+  color: #fff;
+  flex-shrink: 0;
+  overflow: hidden; /* découpe la vraie photo en cercle quand elle sera ajoutée */
+  box-shadow: 0 0 0 2px #fff, 0 0 0 3.5px rgba(29,78,216,0.25);
+}
+/* Quand une vraie photo sera fournie : remplir le cercle sans déformation */
+.nav-avatar img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+.nav-logo {
+  font-family: var(--font-serif);
+  font-size: 1.2rem; font-weight: 600;
+  color: var(--text-primary); letter-spacing: -0.02em;
+}
+.nav-logo span { color: var(--accent); }
+.nav-links {
+  display: flex; align-items: center; gap: 0.25rem;
+}
+.nav-links a {
+  font-size: 0.875rem; font-weight: 500;
+  color: var(--text-secondary);
+  padding: 0.5rem 0.9rem;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+.nav-links a:hover {
+  color: var(--text-primary);
+  background: var(--border-subtle);
+}
+/* Bouton "Contact me" dans la nav — mis en valeur avec fond bleu pâle */
+.nav-cta {
+  font-size: 0.875rem; font-weight: 600;
+  color: var(--accent) !important;           /* !important surcharge la couleur héritée de .nav-links a */
+  background: var(--accent-light) !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--accent-soft) !important;
+  transition: all 0.2s ease !important;
+}
+.nav-cta:hover {
+  background: var(--accent-soft) !important;
+}
+/* Bouton de bascule de langue (EN/FR) */
+.lang-toggle {
+  display: flex; align-items: center;
+  font-size: 0.75rem; font-weight: 600;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  gap: 0.3rem;
+  transition: all 0.2s ease;
+  background: transparent;
+  margin-left: 0.5rem;
+}
+.lang-toggle:hover { border-color: var(--accent); color: var(--accent); }
+/* Bouton dark/light mode — même style que le bouton langue */
+.theme-toggle {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem; cursor: pointer;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--border); border-radius: 6px;
+  transition: all 0.2s ease;
+  background: transparent; color: var(--text-muted);
+}
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+
+/* Bouton hamburger — caché sur desktop, visible uniquement sur mobile (via @media) */
+.nav-mobile-btn {
+  display: none;
+  flex-direction: column; gap: 5px;
+  cursor: pointer; padding: 6px;
+}
+/* Les trois barres horizontales du hamburger */
+.nav-mobile-btn span {
+  display: block; width: 22px; height: 2px;
+  background: var(--text-primary); border-radius: 2px;
+  transition: all 0.3s;
+}

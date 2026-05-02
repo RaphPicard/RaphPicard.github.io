@@ -1,0 +1,79 @@
+/* ===== EXPERIENCE ===== */
+#experience { background: var(--bg); }
+.timeline {
+  margin-top: 3rem;
+  position: relative; /* contexte pour le pseudo-élément ::before de la ligne verticale */
+}
+/* Ligne verticale de la timeline — créée avec un dégradé de l'accent vers le gris */
+.timeline::before {
+  content: ''; position: absolute;
+  left: 18px; top: 0; bottom: 0; width: 1px;
+  /* dégradé vertical : bleu en haut (présent) → gris en bas (passé) */
+  background: linear-gradient(to bottom, var(--accent), var(--border));
+}
+.timeline-item {
+  display: flex; gap: 2rem;
+  margin-bottom: 2.5rem; position: relative;
+}
+/* Point circulaire sur la ligne timeline — z-index: 1 le met devant la ligne ::before */
+.timeline-dot {
+  width: 36px; height: 36px;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem; flex-shrink: 0;
+  position: relative; z-index: 1; /* au-dessus de la ligne .timeline::before */
+  transition: all 0.3s ease;
+}
+/* Au survol : halo bleu autour du point de la timeline */
+.timeline-item:hover .timeline-dot {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-light); /* box-shadow externe simule un halo/ring */
+}
+/* Élément "current" (prochain stage) — mis en valeur avec fond bleu */
+.timeline-item.current .timeline-dot {
+  background: var(--accent-light); border-color: var(--accent);
+}
+.timeline-content {
+  flex: 1; padding: 1.5rem;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: all 0.25s ease;
+}
+.timeline-item:hover .timeline-content {
+  border-color: var(--accent-soft);
+  box-shadow: var(--shadow-sm);
+}
+.timeline-item.current .timeline-content {
+  border-color: var(--accent-soft);
+  background: var(--accent-light); /* fond bleu pâle pour l'élément courant */
+}
+.timeline-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem;
+}
+.timeline-role { font-size: 0.95rem; font-weight: 600; }
+.timeline-org {
+  font-size: 0.85rem; font-weight: 500; color: var(--accent); /* organisation en bleu pour la distinguer du rôle */
+  margin-bottom: 0.25rem;
+}
+.timeline-date {
+  font-family: var(--font-mono); font-size: 0.72rem;
+  color: var(--text-muted); white-space: nowrap; /* empêche la date de passer à la ligne sur les écrans étroits */
+}
+.timeline-desc {
+  font-size: 0.875rem; color: var(--text-secondary); line-height: 1.7;
+}
+.timeline-desc li { padding: 0.2rem 0; }
+/* Préfixe "↳" devant chaque item — généré par CSS sans markup HTML supplémentaire */
+.timeline-desc li::before { content: '↳ '; color: var(--accent); }
+.timeline-tags {
+  display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.85rem;
+}
+.timeline-tags span {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  padding: 0.18rem 0.5rem; border-radius: 5px;
+  background: var(--bg); border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
