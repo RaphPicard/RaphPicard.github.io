@@ -1,0 +1,36 @@
+# Notes personnelles
+TODO.md
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+
+# Éditeurs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# Fichiers de sauvegarde
+*.backup
+*.bak
+*.orig
+
+# Logs
+*.log
+logs/
+
+# Dépendances (si Node est utilisé un jour)
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Build
+dist/
+build/
+.cache/

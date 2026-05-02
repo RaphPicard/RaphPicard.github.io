@@ -31,7 +31,6 @@ FAIT ==> Appuyé sur le côté hacking (animation de glitch, vert fluo pour les 
 
 5. **SEO basique** : ajouter les balises meta (description, og:title, og:image, og:description, twitter:card) pour que le portfolio soit bien partageable sur LinkedIn notamment
 
-
 6. **Section "Projets" améliorée** : ajouter un système de filtres par technologie (Python, Docker, AI, Web...) qui filtre les cards dynamiquement avec une animation fluide. Ce qui veut dire que chaque projet doit être taggé avec des data-tech="python docker ai" par exemple, et que les boutons de filtre déclenchent une fonction JavaScript qui affiche/masque les projets correspondants.
 
 ## Ce qu'il ne faut PAS toucher
