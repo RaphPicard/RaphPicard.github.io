@@ -1,5 +1,6 @@
 # Notes personnelles
 TODO.md
+.claude
 
 # macOS
 .DS_Store
@@ -34,3 +35,4 @@ yarn-error.log*
 dist/
 build/
 .cache/
+
