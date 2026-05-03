@@ -234,9 +234,10 @@
 .tech-chip.blue { color: var(--accent); background: var(--accent-light); border-color: var(--accent-soft); }
 
 
-/* Étiquettes flottantes autour de la carte — positionnées en absolu par rapport au conteneur parent */
+/* Étiquettes flottantes — orbitent en suivant le contour rectangulaire de la carte */
 .hero-floating {
   position: absolute;
+  top: 50%; left: 50%; /* point de départ au centre de la carte */
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -244,13 +245,23 @@
   box-shadow: var(--shadow-md);
   font-size: 0.78rem; font-weight: 500;
   display: flex; align-items: center; gap: 0.5rem;
-  animation: float 3s ease-in-out infinite; /* lévitation continue en boucle */
+  white-space: nowrap;
 }
-.hero-floating.f1 { top: -20px; right: -30px; animation-delay: 0s; }   /* étiquette haute droite */
-.hero-floating.f2 { bottom: -30px; left: -30px; animation-delay: 1s; } /* étiquette basse gauche — décalée de 1s pour un mouvement asynchrone */
-.hero-floating.f3 { top: -30px; left: -30px; animation-delay: 2s; } /* étiquette haute gauche — décalée de 2s pour un mouvement asynchrone */
-/* Animation de lévitation douce — remonte de 8px puis redescend en boucle */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+/*
+  Orbite rectangulaire autour de la carte (~400px × 380px) avec 35px de marge.
+  Rectangle : ±235px horizontal, ±225px vertical → périmètre 1840px.
+  Les % aux coins sont proportionnels aux longueurs des côtés pour une vitesse constante :
+  - côté haut/bas  : 470px → 470/1840 = 25.54%
+  - côté droit/gauche : 450px → 450/1840 = 24.46%
+  Sens horaire depuis coin haut-gauche.
+*/
+@keyframes orbit-rect {
+  0%      { transform: translate(calc(-50% - 235px), calc(-50% - 225px)); } /* haut-gauche   */
+  25.54%  { transform: translate(calc(-50% + 235px), calc(-50% - 225px)); } /* haut-droit    */
+  50%     { transform: translate(calc(-50% + 235px), calc(-50% + 225px)); } /* bas-droit     */
+  75.54%  { transform: translate(calc(-50% - 235px), calc(-50% + 225px)); } /* bas-gauche    */
+  100%    { transform: translate(calc(-50% - 235px), calc(-50% - 225px)); } /* haut-gauche   */
 }
+.hero-floating.f1 { animation: orbit-rect 28s linear infinite; animation-delay: 0s; }
+.hero-floating.f2 { animation: orbit-rect 28s linear infinite; animation-delay: calc(-28s / 3); }
+.hero-floating.f3 { animation: orbit-rect 28s linear infinite; animation-delay: calc(-28s * 2 / 3); }
