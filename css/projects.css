@@ -1,5 +1,19 @@
 /* ===== PROJECTS ===== */
 #projects { background: var(--bg); }
+
+/* Page dédiée aux projets — compense la navbar fixe */
+#projects-page {
+  background: var(--bg);
+  padding-top: calc(var(--nav-height) + 4rem);
+  padding-bottom: 4rem;
+}
+
+/* Bouton "Voir tous les projets" centré sous la grille */
+.projects-see-all {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
 /* Grille 2 colonnes — la carte "featured" prendra les 2 colonnes via grid-column: span 2 */
 .projects-grid {
   display: grid;

@@ -36,18 +36,32 @@
 
   function hideCard(card) {
     if (card.classList.contains('pf-hidden')) return; // déjà caché : évite de relancer la transition
-    card.classList.add('pf-hidden'); // déclenche le fondu/scale via CSS (transition: all sur .project-card)
+    card.classList.add('pf-hidden'); // déclenche le fondu/scale via CSS (transition sur .project-card)
 
-    // { once: true } : le listener se supprime automatiquement après le premier déclenchement
-    // La vérification guards contre un clic rapide qui aurait retiré pf-hidden entre-temps
-    card.addEventListener('transitionend', () => {
-      if (card.classList.contains('pf-hidden')) card.style.display = 'none'; // retire la carte du flux CSS grid → supprime le gap vide
-    }, { once: true });
+    // Assure la suppression de l'élément du flux après la transition.
+    // On utilise à la fois l'événement transitionend (idéal) et un fallback setTimeout
+    if (card._pfHideTimeout) clearTimeout(card._pfHideTimeout);
+    const onEnd = () => {
+      if (card.classList.contains('pf-hidden')) card.style.display = 'none';
+      card.removeEventListener('transitionend', onEnd);
+      if (card._pfHideTimeout) { clearTimeout(card._pfHideTimeout); card._pfHideTimeout = null; }
+    };
+    card.addEventListener('transitionend', onEnd, { once: true });
+    // Fallback : si transitionend ne se déclenche pas, on cache au bout de 500ms
+    card._pfHideTimeout = setTimeout(() => {
+      if (card.classList.contains('pf-hidden')) card.style.display = 'none';
+      card._pfHideTimeout = null;
+      card.removeEventListener('transitionend', onEnd);
+    }, 500);
   }
 
   function showCard(card) {
     if (!card.classList.contains('pf-hidden')) return; // déjà visible : rien à faire
-    card.style.display = ''; // remet la carte dans le flux (display: flex via .project-card)
+    if (card._pfHideTimeout) { clearTimeout(card._pfHideTimeout); card._pfHideTimeout = null; }
+
+    card.style.display = 'flex'; // remet explicitement la carte dans le flux (évite les héritages inattendus)
+
+    
     void card.offsetHeight;  // accès à offsetHeight force le navigateur à recalculer le layout (reflow)
                              // sans ça, le navigateur fusionnerait display='' et classList.remove en un seul rendu
                              // → la transition ne jouerait pas (état initial et final identiques du point de vue du moteur CSS)
