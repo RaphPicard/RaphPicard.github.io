@@ -41,3 +41,14 @@
   color: var(--accent);
   font-weight: 600;
 }
+
+
+/*pour les logos des skills*/
+.skill-tag img,
+.skill-tag svg.skill-logo {
+  display: block;
+  flex-shrink: 0;
+}
+html[data-theme="dark"] .skill-tag .logo-invert-dark {
+  filter: invert(1) brightness(1.8);
+}

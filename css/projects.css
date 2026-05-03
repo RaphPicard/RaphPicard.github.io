@@ -13,23 +13,28 @@
   border-radius: var(--radius);
   padding: 1.75rem;
   display: flex; flex-direction: column;
-  transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
-  position: relative; overflow: hidden; /* overflow: hidden coupe la barre colorée ::before aux coins arrondis */
+  transition: transform 0.45s cubic-bezier(0.16,1,0.3,1),
+              box-shadow 0.35s ease-out,
+              border-color 0.25s ease-out;
+  will-change: transform;
+  position: relative; overflow: hidden;
 }
-/* Barre colorée en haut de la carte — invisible par défaut, apparaît au survol */
+/* Barre colorée en haut — slide depuis la gauche au survol */
 .project-card::before {
   content: '';
   position: absolute; top: 0; left: 0; right: 0; height: 3px;
   background: linear-gradient(90deg, var(--accent), #60A5FA);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: opacity 0.2s ease, transform 0.45s cubic-bezier(0.16,1,0.3,1);
 }
 .project-card:hover {
-  border-color: transparent; /* supprime la bordure grise pour ne garder que l'ombre */
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-4px);
+  border-color: transparent;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.1), 0 8px 24px rgba(0,0,0,0.06);
+  transform: translateY(-8px) scale(1.015);
 }
-.project-card:hover::before { opacity: 1; } /* révèle la barre bleue en haut au survol */
+.project-card:hover::before { opacity: 1; transform: scaleX(1); }
 /* Carte "featured" : occupe les 2 colonnes de la grille avec un fond sombre */
 .project-card.featured {
   grid-column: span 2; /* s'étend sur les 2 colonnes de .projects-grid */
@@ -64,9 +69,17 @@
   display: flex; align-items: center; justify-content: center;
   border: 1px solid var(--border); border-radius: 8px;
   color: var(--text-muted); font-size: 0.85rem;
-  transition: all 0.2s ease;
+  transition: color 0.2s ease,
+              border-color 0.2s ease,
+              background-color 0.2s ease,
+              transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-.project-link:hover { color: var(--accent); border-color: var(--accent); }
+.project-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-light);
+  transform: scale(1.15);
+}
 /* Variantes de couleur pour les liens de la carte featured (fond sombre) */
 .project-card.featured .project-link { border-color: #334155; color: #94a3b8; }
 .project-card.featured .project-link:hover { border-color: #60A5FA; color: #60A5FA; }

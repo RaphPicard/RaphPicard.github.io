@@ -76,14 +76,20 @@
           <h1 class="hero-name reveal reveal-delay-1">Raphaël<br><em>Picard</em></h1>
           <!-- em : redéfini en CSS (font-style: normal) et utilisé uniquement pour le dégradé bleu sur "Picard" -->
           <p class="hero-role reveal reveal-delay-2" data-en="Software Engineer & Big Data · AI Enthusiast" data-fr="Ingénieur Logiciel & Big Data · Passionné d'IA">Software Engineer & Big Data · AI Enthusiast</p>
-          <p class="hero-tagline reveal reveal-delay-3">
+          
+          <p class="hero-typewriter reveal reveal-delay-3" data-tw="hero">
+            <span class="tw-prefix" data-en="I build · " data-fr="Je construis · ">I build · </span><span class="tw-word"></span><span class="tw-cursor" aria-hidden="true">|</span>
+          </p>
+
+
+          <p class="hero-tagline reveal reveal-delay-4">
             <!-- Le span intérieur porte les attributs data-* pour que le JS puisse remplacer innerHTML (et interpréter <strong>) -->
             <span data-en="Engineering Master's student at <strong>CPE Lyon</strong>, specializing in Software Design and Big Data. Passionate about building <strong>AI-powered systems</strong>, agentic workflows, and data pipelines that create real-world impact."
                   data-fr="Étudiant ingénieur à <strong>CPE Lyon</strong>, spécialisation Conception Logicielle et Big Data. Passionné par la création de <strong>systèmes IA</strong>, les workflows agentiques et les pipelines de données à fort impact.">
               Engineering Master's student at <strong>CPE Lyon</strong>, specializing in Software Design and Big Data. Passionate about building <strong>AI-powered systems</strong>, agentic workflows, and data pipelines that create real-world impact.
             </span>
           </p>
-          <div class="hero-ctas reveal reveal-delay-4">
+          <div class="hero-ctas reveal reveal-delay-5">
             <a href="#projects" class="btn-primary">
               <!-- SVG inline : icône boîte/cube — viewBox définit l'espace de coordonnées, stroke="currentColor" hérite la couleur du texte parent -->
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/></svg>
@@ -258,7 +264,12 @@
     </div>
   </section>
 
+  
+
   <div class="section-divider"></div>
+
+
+
 
   <!-- ===== SKILLS ===== -->
   <section id="skills">
@@ -266,34 +277,40 @@
       <p class="section-eyebrow reveal" data-en="Technical skills" data-fr="Compétences techniques">Technical skills</p>
       <h2 class="section-title reveal reveal-delay-1" data-en="What I work with" data-fr="Ce avec quoi je travaille">What I work with</h2>
       <p class="section-subtitle reveal reveal-delay-2" data-en="A mix of languages, frameworks, tools and platforms I use to build things." data-fr="Un mélange de langages, frameworks, outils et plateformes que j'utilise.">A mix of languages, frameworks, tools and platforms I use to build things.</p>
-      <div class="skills-wrapper">
+      <p class="hero-typewriter" data-tw="good_practices">
+        <span class="tw-prefix" data-en="Here are the best practices I use:" data-fr="Voici les bonnes pratiques que j'utilise :">Here are the best practices I use:</span>
+        <span class="tw-word"></span>
+        <span class="tw-cursor" aria-hidden="true">|</span>
+      </p>
         <!-- Chaque skills-category : titre de catégorie + grille de tags -->
         
         <div class="skills-category reveal reveal-delay-1">
           <div class="skills-cat-title" data-en="Languages" data-fr="Langages">Languages</div>
           <div class="skills-grid">
-            <span class="skill-tag featured">Python</span>
-            <span class="skill-tag featured">SQL</span>
-            <span class="skill-tag featured">Java</span>
-            <span class="skill-tag">C</span>
-            <span class="skill-tag">Bash</span>
-            <span class="skill-tag">VHDL</span>
-            <span class="skill-tag">HTML / CSS / JS</span>
-            <span class="skill-tag">PHP (MVC + REST)</span>
+            <span class="skill-tag featured"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="" width="18" height="18">Python</span>
+            <span class="skill-tag featured"><svg class="skill-logo" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>SQL</span>
+            <span class="skill-tag featured"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="" width="18" height="18">Java</span>
+            <span class="skill-tag"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg" alt="" width="18" height="18">C</span>
+            <span class="skill-tag"><img class="skill-logo logo-invert-dark" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg" alt="" width="18" height="18">Bash</span>
+            <span class="skill-tag"><svg class="skill-logo" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M7 10H4M7 14H4M17 10h3M17 14h3M10 7V4M14 7V4M10 17v3M14 17v3"/></svg>VHDL</span>
+            <span class="skill-tag"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="" width="18" height="18">HTML</span>
+            <span class="skill-tag"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="" width="18" height="18">CSS</span>
+            <span class="skill-tag"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="" width="18" height="18">JS</span>
+            <span class="skill-tag"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" alt="" width="18" height="18">PHP</span>
           </div>
         </div>
         <div class="skills-category reveal reveal-delay-2">
           <div class="skills-cat-title" data-en="Data &amp; Infrastructure" data-fr="Données &amp; Infrastructure">Data &amp; Infrastructure</div>
           <div class="skills-grid">
-            <span class="skill-tag featured">Docker &amp; Docker Compose</span>
-            <span class="skill-tag">PostgreSQL / pgAdmin</span>
-            <span class="skill-tag featured">MySQL</span>
-            <span class="skill-tag">Redis</span>
-            <span class="skill-tag">pandas</span>
-            <span class="skill-tag">NumPy</span>
-            <span class="skill-tag">matplotlib</span>
-            <span class="skill-tag featured">Linux CLI</span>
-            <span class="skill-tag">Git / GitHub</span>
+            <span class="skill-tag featured"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="" width="18" height="18">Docker &amp; Docker Compose</span>
+            <span class="skill-tag"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="" width="18" height="18">PostgreSQL / pgAdmin</span>
+            <span class="skill-tag featured"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" alt="" width="18" height="18">MySQL</span>
+            <span class="skill-tag"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg" alt="" width="18" height="18">Redis</span>
+            <span class="skill-tag"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" alt="" width="18" height="18">pandas</span>
+            <span class="skill-tag"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg" alt="" width="18" height="18">NumPy</span>
+            <span class="skill-tag"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg" alt="" width="18" height="18">matplotlib</span>
+            <span class="skill-tag featured"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" alt="" width="18" height="18">Linux CLI</span>
+            <span class="skill-tag"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="" width="18" height="18">Git / GitHub</span>
           </div>
         </div>
         <div class="skills-category reveal reveal-delay-3">
@@ -303,17 +320,27 @@
             <span class="skill-tag featured">🤖 AI Agents (Orchestrator / Worker)</span>
             <span class="skill-tag">MCP Protocol</span>
             <span class="skill-tag">A2A Protocol</span>
-            <span class="skill-tag">AWS (in progress)</span>
-            <span class="skill-tag featured">Claude API</span>
+            <span class="skill-tag"><img class="skill-logo" src="https://cdn.simpleicons.org/amazonaws/FF9900" alt="" width="18" height="18">AWS (in progress)</span>
+            <span class="skill-tag featured"><img class="skill-logo" src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Claude_AI_symbol.svg" alt="" width="18" height="18">Claude API</span>
             <span class="skill-tag">Callbacks &amp; Tools</span>
             <span class="skill-tag featured">Data Mining</span>
             <span class="skill-tag">KMeans / MiniBatchKMeans</span>
             <span class="skill-tag">Random Forest</span>
-            <span class="skill-tag">scikit-learn</span>
-            <span class="skill-tag">Jupyter Notebooks</span>
+            <span class="skill-tag"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg" alt="" width="18" height="18">scikit-learn</span>
+            <span class="skill-tag"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jupyter/jupyter-original.svg" alt="" width="18" height="18">Jupyter Notebooks</span>
           </div>
         </div>
         <div class="skills-category reveal reveal-delay-4">
+          <div class="skills-cat-title" data-en="Software" data-fr="Logiciels">Software</div>
+          <div class="skills-grid">
+            <span class="skill-tag"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" alt="" width="18" height="18">VS Code</span>
+            <span class="skill-tag"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/intellij/intellij-original.svg" alt="" width="18" height="18">IntelliJ IDEA</span>
+            <span class="skill-tag"><img class="skill-logo logo-invert-dark" src="https://cdn.simpleicons.org/virtualbox" alt="" width="18" height="18">VirtualBox</span>
+            <span class="skill-tag"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="" width="18" height="18">Docker</span>
+            <span class="skill-tag"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/insomnia/insomnia-original.svg" alt="" width="18" height="18">Insomnia</span>
+          </div>
+        </div>
+        <div class="skills-category reveal reveal-delay-5">
           <div class="skills-cat-title" data-en="Soft Skills" data-fr="Compétences transverses">Soft Skills</div>
           <div class="skills-grid">
             <span class="skill-tag featured">Emotional Intelligence</span>
@@ -646,6 +673,7 @@
 
 
 
+  <script src="js/typewriter.js" defer></script>
   <script src="js/scroll-reveal.js" defer></script>
   <script src="js/nav.js" defer></script>
   <script src="js/lang.js" defer></script>
