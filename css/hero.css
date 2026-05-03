@@ -55,6 +55,7 @@
   -webkit-text-fill-color: transparent; /* rend le texte transparent pour révéler le dégradé */
   background-clip: text;
 }
+
 .hero-role {
   font-size: 1.15rem; font-weight: 400;
   color: var(--text-secondary);

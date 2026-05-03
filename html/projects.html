@@ -17,73 +17,94 @@
   <link rel="stylesheet" href="../css/style.css" />
 </head>
 
-
-
-
-
-
 <body>
-
 
   <div id="nav-placeholder"></div>
 
-
-
-
-
+  <!-- ===================================================
+       IMAGES DE PROJET : déposer mes captures dans assets/
+       avec les noms suivants :
+         assets/DataMining.png
+         assets/AIAgents.png
+         assets/Minecraft.png
+         assets/MVC.png
+         assets/WEB.png
+         assets/SpaceInvaders.png
+         assets/Chess.png
+         assets/SmartFridge.png
+       Si le fichier est absent la zone image se masque automatiquement.
+  =================================================== -->
 
   <section id="projects-page">
     <div class="container">
       <p class="section-eyebrow reveal" data-en="Projects" data-fr="Projets">Projects</p>
       <h1 class="section-title reveal reveal-delay-1" data-en="Things I've built" data-fr="Ce que j'ai construit">Things I've built</h1>
-      <p class="section-subtitle reveal reveal-delay-2" data-en="From data pipelines to recommendation engines, AI agents, and games." data-fr="Des pipelines de données aux agents IA, moteurs de recommandation et jeux.">From data pipelines to recommendation engines, AI agents, and games.</p>
+      <p class="section-subtitle reveal reveal-delay-2"
+         data-en="From data pipelines to recommendation engines, AI agents, and games."
+         data-fr="Des pipelines de données aux agents IA, moteurs de recommandation et jeux.">From data pipelines to recommendation engines, AI agents, and games.</p>
 
       <div class="project-filters reveal reveal-delay-3">
-        <button class="pf-btn pf-active" data-filter="all" data-en="All" data-fr="Tout">All</button>
-        <button class="pf-btn" data-filter="python">Python</button>
-        <button class="pf-btn" data-filter="java">Java</button>
-        <button class="pf-btn" data-filter="ai">AI</button>
-        <button class="pf-btn" data-filter="web">Web</button>
-        <button class="pf-btn" data-filter="docker">Docker</button>
-        <button class="pf-btn" data-filter="data">Data</button>
-        <button class="pf-btn" data-filter="poo">POO</button>
+        <button class="pf-btn pf-active" data-filter="all"    data-en="All"    data-fr="Tout">All</button>
+        <button class="pf-btn"           data-filter="python">Python</button>
+        <button class="pf-btn"           data-filter="java">Java</button>
+        <button class="pf-btn"           data-filter="ai">AI</button>
+        <button class="pf-btn"           data-filter="web">Web</button>
+        <button class="pf-btn"           data-filter="docker">Docker</button>
+        <button class="pf-btn"           data-filter="data">Data</button>
+        <button class="pf-btn"           data-filter="poo">POO</button>
       </div>
 
       <div class="projects-grid">
 
-        <!-- FEATURED -->
+        <!-- ═══ DATA MINING — assets/DataMining.png ═══ -->
         <div class="project-card featured reveal reveal-delay-1" data-tech="python ai data">
+          <div class="project-img-wrap">
+            <img src="../assets/DataMining.png" alt="Data Mining Pipeline" class="project-img"
+                 onerror="this.closest('.project-img-wrap').style.display='none'">  <!-- Si l'image ne charge pas, on masque la div parente pour éviter un espace vide disgracieux -->
+          </div>
           <div class="project-header">
             <div class="project-icon">📊</div>
             <div class="project-links">
-              <a href="https://github.com/Raphouman" target="_blank" class="project-link" title="GitHub">
+              <a href="https://github.com/Raphouman/Data_Recommandation" target="_blank" class="project-link" title="GitHub">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
               </a>
             </div>
           </div>
           <div class="project-highlight-badge">⭐ <span data-en="Academic Project · CPE Lyon 2026" data-fr="Projet Académique · CPE Lyon 2026">Academic Project · CPE Lyon 2026</span></div>
           <div class="project-name" data-en="Image Data Mining Pipeline &amp; Recommendation System" data-fr="Pipeline Data Mining d'Images &amp; Système de Recommandation">Image Data Mining Pipeline &amp; Recommendation System</div>
-          <div class="project-desc" data-en="End-to-end data science pipeline: 200 images collected via Unsplash API → feature extraction (KMeans color clustering, orientation, size) → user preference profiling → content-based recommendation with Random Forest. Full unit test suite included." data-fr="Pipeline data science complet : 200 images via l'API Unsplash → extraction de features (KMeans couleurs, orientation, taille) → profilage des préférences → recommandation avec Random Forest. Suite de tests unitaires complète incluse.">End-to-end data science pipeline: 200 images collected via Unsplash API → feature extraction (KMeans color clustering, orientation, size) → user preference profiling → content-based recommendation with Random Forest. Full unit test suite included.</div>
+          <div class="project-desc"
+               data-en="End-to-end data science pipeline built for a Big Data engineering course. 200 images are collected via the Unsplash API, then processed through a multi-stage feature extraction pipeline: dominant color clustering (KMeans), orientation detection, and size classification. A user preference profiling system builds a taste vector from explicit ratings, which feeds a content-based recommendation engine using Random Forest. Includes a full unit test suite covering each pipeline stage independently."
+               data-fr="Pipeline data science complet conçu pour un cours d'ingénierie Big Data. 200 images collectées via l'API Unsplash, traitées par un pipeline multi-étapes : clustering de couleurs dominantes (KMeans), détection d'orientation et classification par taille. Un système de profilage des préférences construit un vecteur de goût depuis des évaluations explicites, alimentant un moteur de recommandation basé sur Random Forest. Suite de tests unitaires complète couvrant chaque étape du pipeline.">End-to-end data science pipeline built for a Big Data engineering course. 200 images collected via the Unsplash API, then processed through feature extraction (KMeans color clustering, orientation, size). A user preference profiling system feeds a content-based recommendation engine with Random Forest. Includes a full unit test suite.</div>
           <div class="project-tech"><span>Python</span><span>scikit-learn</span><span>KMeans</span><span>Random Forest</span><span>pandas</span><span>NumPy</span><span>matplotlib</span><span>Pillow</span><span>Unsplash API</span></div>
         </div>
 
-        <!-- AI Agents -->
+        <!-- ═══ AI AGENTS — assets/AIAgents.png ═══ -->
         <div class="project-card reveal reveal-delay-2" data-tech="python ai">
+          <div class="project-img-wrap">
+            <img src="../assets/AIAgents.png" alt="AI Agents" class="project-img"
+                 onerror="this.closest('.project-img-wrap').style.display='none'">
+          </div>
           <div class="project-header">
             <div class="project-icon">🤖</div>
             <div class="project-links">
-              <a href="https://github.com/Raphouman/AWS_AGENT_AI" target="_blank" class="project-link">
+              <a href="https://github.com/Raphouman/AWS_AGENT_AI" target="_blank" class="project-link" title="GitHub">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
               </a>
             </div>
           </div>
           <div class="project-name" data-en="Multi-Agent AI System (Orchestrator / Workers)" data-fr="Système Multi-Agents IA (Orchestrateur / Workers)">Multi-Agent AI System</div>
-          <div class="project-desc" data-en="Architecture of autonomous AI agents communicating via MCP and A2A protocols. An orchestrator delegates sub-tasks to specialized workers with tool calls, callbacks, and error recovery — all on top of AWS and major LLM APIs." data-fr="Architecture d'agents IA autonomes via MCP et A2A. Un orchestrateur délègue des sous-tâches à des workers spécialisés avec outils, callbacks et récupération d'erreurs — sur AWS et grandes APIs LLM.">Architecture of autonomous AI agents communicating via MCP and A2A protocols. An orchestrator delegates sub-tasks to specialized workers with tool calls, callbacks, and error recovery — all on top of AWS and major LLM APIs.</div>
+          <div class="project-desc"
+               data-en="Architecture of autonomous AI agents communicating via MCP (Model Context Protocol) and A2A (Agent-to-Agent) protocols. A central orchestrator breaks down complex tasks and delegates sub-tasks to specialized worker agents equipped with tool calls. Implements retry logic, error recovery, and callback chains. Deployed on AWS with integrations to OpenAI and Claude APIs."
+               data-fr="Architecture d'agents IA autonomes communicant via MCP (Model Context Protocol) et A2A (Agent-to-Agent). Un orchestrateur central décompose des tâches complexes et délègue à des workers spécialisés équipés d'outils. Implémente la logique de retry, la récupération d'erreurs et les chaînes de callbacks. Déployé sur AWS avec intégrations OpenAI et Claude API.">Architecture of autonomous AI agents communicating via MCP and A2A protocols. A central orchestrator breaks down complex tasks and delegates to specialized workers with tool calls, error recovery, and callback chains. Deployed on AWS with OpenAI and Claude API integrations.</div>
           <div class="project-tech"><span>Python</span><span>MCP</span><span>A2A</span><span>AWS</span><span>OpenAI API</span><span>Claude API</span></div>
         </div>
 
-        <!-- Minecraft -->
+        <!-- ═══ MINECRAFT — assets/Minecraft.png ═══ -->
         <div class="project-card reveal reveal-delay-2" data-tech="python poo">
+          <div class="project-img-wrap">
+            <img src="../assets/Minecraft.png" alt="Minecraft Clone" class="project-img"
+                 onerror="this.closest('.project-img-wrap').style.display='none'">
+          </div>
           <div class="project-header">
             <div class="project-icon">⛏️</div>
             <div class="project-links">
@@ -93,57 +114,39 @@
             </div>
           </div>
           <div class="project-name" data-en="Minecraft Clone — 3D Voxel Game" data-fr="Clone Minecraft — Jeu 3D Voxel">Minecraft Clone — 3D Voxel Game</div>
-          <div class="project-desc" data-en="3D Minecraft-inspired game built in Python with OpenGL. Custom GLSL shaders for lighting and visual effects, voxel-based world rendering, and a complete 3D engine written from scratch." data-fr="Jeu 3D inspiré de Minecraft en Python avec OpenGL. Shaders GLSL custom pour l'éclairage et effets visuels, rendu voxel, moteur 3D complet écrit from scratch.">3D Minecraft-inspired game built in Python with OpenGL. Custom GLSL shaders for lighting and visual effects, voxel-based world rendering, and a complete 3D engine written from scratch.</div>
-          <div class="project-tech"><span>Python</span><span>OpenGL</span><span>GLSL</span><span>3D Rendering</span><span>Voxel Engine</span></div>
+          <div class="project-desc"
+               data-en="3D Minecraft-inspired voxel game built in Python with ModernGL (OpenGL). A complete 3D engine written from scratch: voxel chunk management, frustum culling for performance, custom GLSL shaders for ambient occlusion and dynamic lighting, and a block interaction system. The project focuses on understanding low-level 3D rendering concepts without a game engine."
+               data-fr="Jeu voxel 3D inspiré de Minecraft en Python avec ModernGL (OpenGL). Moteur 3D complet écrit from scratch : gestion des chunks voxel, frustum culling pour les performances, shaders GLSL custom pour l'occlusion ambiante et l'éclairage dynamique, et système d'interaction avec les blocs. Le projet vise la compréhension des concepts de rendu 3D bas niveau sans moteur de jeu.">3D Minecraft-inspired game in Python with ModernGL. Built from scratch: voxel chunk management, frustum culling, custom GLSL shaders for ambient occlusion and dynamic lighting, block interaction system. Deep dive into low-level 3D rendering without a game engine.</div>
+          <div class="project-tech"><span>Python</span><span>OpenGL</span><span>ModernGL</span><span>GLSL</span><span>3D Rendering</span><span>Voxel Engine</span></div>
         </div>
 
-        <!-- MVC REST Website -->
+        <!-- ═══ MVC REST — assets/MVC.png ═══ -->
         <div class="project-card reveal reveal-delay-3" data-tech="web php docker">
+          <div class="project-img-wrap">
+            <img src="../assets/MVC.png" alt="RESTful MVC Website" class="project-img"
+                 onerror="this.closest('.project-img-wrap').style.display='none'">
+          </div>
           <div class="project-header">
             <div class="project-icon">🌐</div>
             <div class="project-links">
-              <a href="https://github.com/Raphouman/WEBSITE_MVC_API-REST" target="_blank" class="project-link">
+              <a href="https://github.com/Raphouman/WEBSITE_MVC_API-REST" target="_blank" class="project-link" title="GitHub">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
               </a>
             </div>
           </div>
-          <div class="project-name">RESTful MVC Website</div>
-          <div class="project-desc" data-en="Full-stack website with a proper MVC architecture and RESTful API. Clean separation between Model, View, and Controller. Dockerized with PHP, MySQL and Nginx." data-fr="Site web full-stack avec architecture MVC rigoureuse et API RESTful. Séparation nette entre Model, View et Controller. Dockerisé avec PHP, MySQL et Nginx.">Full-stack website with a proper MVC architecture and RESTful API. Clean separation between Model, View, and Controller. Dockerized with PHP, MySQL and Nginx.</div>
-          <div class="project-tech"><span>PHP</span><span>MySQL</span><span>Docker</span><span>REST API</span><span>MVC</span></div>
+          <div class="project-name" data-en="RESTful MVC Website" data-fr="Site Web MVC RESTful">RESTful MVC Website</div>
+          <div class="project-desc"
+               data-en="Full-stack website applying a strict MVC architecture with a RESTful API layer. The Model handles all database logic via PDO, the Controller processes HTTP requests and calls the API endpoints, and Views are pure HTML/CSS templates. Fully containerized with Docker Compose: PHP-FPM, Nginx, and MySQL services. Focused on clean architecture and separation of concerns."
+               data-fr="Site web full-stack appliquant une architecture MVC stricte avec une couche API RESTful. Le Model gère la logique base de données via PDO, le Controller traite les requêtes HTTP et appelle les endpoints, les Views sont de purs templates HTML/CSS. Entièrement conteneurisé avec Docker Compose : services PHP-FPM, Nginx et MySQL. Focus sur l'architecture propre et la séparation des responsabilités.">Full-stack website with strict MVC architecture and a RESTful API layer. Model handles DB logic via PDO, Controller processes HTTP requests, Views are pure templates. Fully containerized with Docker Compose (PHP-FPM, Nginx, MySQL). Clean architecture, separation of concerns.</div>
+          <div class="project-tech"><span>PHP</span><span>MySQL</span><span>Docker</span><span>Nginx</span><span>REST API</span><span>MVC</span><span>PDO</span></div>
         </div>
 
-        <!-- First Website -->
-        <div class="project-card reveal reveal-delay-3" data-tech="web">
-          <div class="project-header">
-            <div class="project-icon">💻</div>
-            <div class="project-links">
-              <a href="https://github.com/Raphouman/WEB" target="_blank" class="project-link" title="GitHub">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-              </a>
-            </div>
+        <!-- ═══ CHESS — assets/Chess.png ═══ -->
+        <div class="project-card reveal reveal-delay-3" data-tech="java poo">
+          <div class="project-img-wrap">
+            <img src="../assets/Chess.png" alt="Chess Game" class="project-img"
+                 onerror="this.closest('.project-img-wrap').style.display='none'">
           </div>
-          <div class="project-name" data-en="First Website — Vanilla Front-end" data-fr="Premier Site Web — Front-end Vanilla">First Website — Vanilla Front-end</div>
-          <div class="project-desc" data-en="First front-end project built with vanilla HTML, CSS, and JavaScript. Includes three sub-projects: a personal travel website, a school exam replica, and a teacher template — all focused on mastering web fundamentals." data-fr="Premier projet web front-end en HTML, CSS et JavaScript vanilla. Trois sous-projets : un site voyage personnel, une annale d'examen, et un modèle enseignant — axés sur les fondamentaux du web.">First front-end project built with vanilla HTML, CSS, and JavaScript. Includes three sub-projects: a personal travel website, a school exam replica, and a teacher template — all focused on mastering web fundamentals.</div>
-          <div class="project-tech"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Responsive Design</span></div>
-        </div>
-
-        <!-- Space Invaders -->
-        <div class="project-card reveal reveal-delay-2" data-tech="python poo">
-          <div class="project-header">
-            <div class="project-icon">🚀</div>
-            <div class="project-links">
-              <a href="https://github.com/Raphouman/SpaceInvaders" target="_blank" class="project-link">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-              </a>
-            </div>
-          </div>
-          <div class="project-name">Space Invaders</div>
-          <div class="project-desc" data-en="Classic Space Invaders built in Python with Pygame. My first complete game — implementing game loops, collision detection, sprite management and scoring." data-fr="Space Invaders classique en Python avec Pygame. Mon premier jeu complet — boucle de jeu, détection de collisions, gestion des sprites et score.">Classic Space Invaders built in Python with Pygame. My first complete game — implementing game loops, collision detection, sprite management and scoring.</div>
-          <div class="project-tech"><span>Python</span><span>Pygame</span><span>OOP</span><span>Game Loop</span></div>
-        </div>
-
-        <!-- Chess Game -->
-        <div class="project-card reveal reveal-delay-4" data-tech="java poo">
           <div class="project-header">
             <div class="project-icon">♟️</div>
             <div class="project-links">
@@ -153,45 +156,75 @@
             </div>
           </div>
           <div class="project-name" data-en="Chess Game — OOP &amp; Design Patterns" data-fr="Jeu d'Échecs — POO &amp; Design Patterns">Chess Game — OOP &amp; Design Patterns</div>
-          <div class="project-desc" data-en="Full-featured chess game in Java with a graphical Swing interface. Implements check, checkmate and stalemate detection. Built with MVC architecture and Observer pattern — drag-and-drop piece movement." data-fr="Jeu d'échecs complet en Java avec interface graphique Swing. Détection des échecs, mats et pats. Architecture MVC et pattern Observer — déplacement des pièces en drag-and-drop.">Full-featured chess game in Java with a graphical Swing interface. Implements check, checkmate and stalemate detection. Built with MVC architecture and Observer pattern — drag-and-drop piece movement.</div>
-          <div class="project-tech"><span>Java</span><span>Swing</span><span>OOP</span><span>MVC</span><span>Observer Pattern</span><span>Design Patterns</span></div>
+          <div class="project-desc"
+               data-en="Full-featured chess game in Java with a graphical Swing interface. Implements full rule enforcement: check, checkmate, stalemate, en passant, and castling detection. Architected with MVC to decouple game logic from rendering. Uses the Observer pattern for piece move events, and Strategy pattern for piece movement rules. Drag-and-drop piece interaction."
+               data-fr="Jeu d'échecs complet en Java avec interface graphique Swing. Applique toutes les règles : échec, mat, pat, en passant et roque. Architecture MVC pour découpler logique et rendu. Pattern Observer pour les événements de déplacement, pattern Stratégie pour les règles de mouvement de chaque pièce. Interaction par drag-and-drop.">Full-featured chess game in Java with Swing UI. Full rule enforcement (check, checkmate, en passant, castling). MVC architecture, Observer pattern for move events, Strategy pattern for piece movement rules. Drag-and-drop interaction.</div>
+          <div class="project-tech"><span>Java</span><span>Swing</span><span>OOP</span><span>MVC</span><span>Observer</span><span>Strategy</span><span>Design Patterns</span></div>
         </div>
 
-        <!-- Automate -->
-        <div class="project-card reveal reveal-delay-4" data-tech="python">
+        <!-- ═══ SPACE INVADERS — assets/SpaceInvaders.png ═══ -->
+        <div class="project-card reveal reveal-delay-4" data-tech="python poo">
+          <div class="project-img-wrap">
+            <img src="../assets/SpaceInvaders.png" alt="Space Invaders" class="project-img"
+                 onerror="this.closest('.project-img-wrap').style.display='none'">
+          </div>
           <div class="project-header">
-            <div class="project-icon">🔤</div>
+            <div class="project-icon">🚀</div>
             <div class="project-links">
-              <a href="https://github.com/Raphouman/automate" target="_blank" class="project-link">
+              <a href="https://github.com/Raphouman/SpaceInvaders" target="_blank" class="project-link" title="GitHub">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
               </a>
             </div>
           </div>
-          <div class="project-name" data-en="Syntax Validator Automaton" data-fr="Automate de Validation Syntaxique">Syntax Validator Automaton</div>
-          <div class="project-desc" data-en="Python implementation of a finite automaton checking whether a sentence respects grammatical syntax rules. Built from scratch using formal language theory and state machine patterns." data-fr="Implémentation Python d'un automate fini vérifiant si une phrase respecte les règles syntaxiques. Construit from scratch avec la théorie des langages formels et les patterns de machines à états.">Python implementation of a finite automaton checking whether a sentence respects grammatical syntax rules. Built from scratch using formal language theory and state machine patterns.</div>
-          <div class="project-tech"><span>Python</span><span>Formal Languages</span><span>State Machines</span><span>OOP</span></div>
+          <div class="project-name">Space Invaders</div>
+          <div class="project-desc"
+               data-en="Classic Space Invaders rebuilt in Python with Pygame. My first complete game project — covers game loop architecture, frame-rate independent movement, collision detection with hitboxes, sprite and animation management, wave progression, and a high-score system. Introduced me to real-time programming constraints."
+               data-fr="Space Invaders classique recréé en Python avec Pygame. Mon premier projet jeu complet — couvre l'architecture de boucle de jeu, les mouvements indépendants du framerate, la détection de collisions avec hitboxes, la gestion des sprites et animations, la progression des vagues et un système de meilleur score. Introduction aux contraintes de la programmation temps réel.">Classic Space Invaders in Python with Pygame. Covers game loop architecture, frame-rate independent movement, collision detection, sprite management, wave progression, and high-score system. Introduction to real-time programming constraints.</div>
+          <div class="project-tech"><span>Python</span><span>Pygame</span><span>OOP</span><span>Game Loop</span><span>Sprite Management</span></div>
         </div>
 
-        <!-- Smart Fridge -->
-        <div class="project-card reveal reveal-delay-3" data-tech="team">
-          <div class="project-header"><div class="project-icon">🧊</div></div>
+        <!-- ═══ FIRST WEBSITE — assets/WEB.png ═══ -->
+        <div class="project-card reveal reveal-delay-3" data-tech="web">
+          <div class="project-img-wrap">
+            <img src="../assets/WEB.png" alt="First Website" class="project-img"
+                 onerror="this.closest('.project-img-wrap').style.display='none'">
+          </div>
+          <div class="project-header">
+            <div class="project-icon">💻</div>
+            <div class="project-links">
+              <a href="https://github.com/Raphouman/WEB" target="_blank" class="project-link" title="GitHub">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="project-name" data-en="First Website — Vanilla Front-end" data-fr="Premier Site Web — Front-end Vanilla">First Website — Vanilla Front-end</div>
+          <div class="project-desc"
+               data-en="First structured front-end project, grouping three sub-projects built with pure HTML, CSS, and JavaScript. Includes a personal travel website, a replica of a school exam interface, and a teacher resource template. Focused on mastering semantic HTML, CSS layout techniques (flexbox, grid), responsive design, and vanilla DOM manipulation without any framework."
+               data-fr="Premier projet front-end structuré regroupant trois sous-projets en HTML, CSS et JavaScript pur. Inclut un site voyage personnel, une réplique d'interface d'examen scolaire et un modèle de ressource enseignant. Focus sur le HTML sémantique, les techniques CSS (flexbox, grid), le responsive design et la manipulation du DOM vanilla sans framework.">First front-end project grouping three sub-projects in pure HTML/CSS/JS: a travel website, a school exam interface replica, and a teacher template. Focus on semantic HTML, CSS layout (flexbox, grid), responsive design, and vanilla DOM manipulation.</div>
+          <div class="project-tech"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Flexbox</span><span>CSS Grid</span><span>Responsive Design</span></div>
+        </div>
+
+        <!-- ═══ SMART FRIDGE — assets/SmartFridge.png ═══ -->
+        <div class="project-card reveal reveal-delay-4" data-tech="team python">
+          <div class="project-img-wrap">
+            <img src="../assets/SmartFridge.png" alt="Smart Fridge" class="project-img"
+                 onerror="this.closest('.project-img-wrap').style.display='none'">
+          </div>
+          <div class="project-header">
+            <div class="project-icon">🧊</div>
+          </div>
           <div class="project-name" data-en="Smart Fridge — Startup Project" data-fr="Frigo Connecté — Projet Entrepreneurial">Smart Fridge — Startup Project</div>
-          <div class="project-desc" data-en="1-year team project: co-led the design of a smart fridge detecting food, managing stock levels, and suggesting recipes. Reinforced teamwork, project management and entrepreneurial thinking." data-fr="Projet d'équipe d'1 an : co-pilotage d'un frigo intelligent détectant des aliments en gérant stocks et suggérant des recettes. A renforcé teamwork, gestion de projet et esprit entrepreneurial.">1-year team project: co-led the design of a smart fridge detecting food, managing stock levels, and suggesting recipes. Reinforced teamwork, project management and entrepreneurial thinking.</div>
-          <div class="project-tech"><span>Python</span><span>Database</span><span>Team Project</span></div>
+          <div class="project-desc"
+               data-en="Year-long team entrepreneurship project: co-led the design and prototyping of a smart fridge capable of detecting stored food items, tracking stock levels in a database, and suggesting personalized recipes. Covered the full product cycle — ideation, feasibility study, technical prototyping, and pitch presentation. Reinforced skills in teamwork, project management, and entrepreneurial thinking."
+               data-fr="Projet entrepreneurial d'équipe sur un an : co-pilotage de la conception et du prototypage d'un frigo intelligent capable de détecter les aliments stockés, de suivre les stocks en base de données et de suggérer des recettes personnalisées. Cycle produit complet — idéation, étude de faisabilité, prototypage technique et présentation pitch. Renforcement des compétences en travail d'équipe, gestion de projet et esprit entrepreneurial.">Year-long team entrepreneurship project. Co-led design and prototyping of a smart fridge: food detection, stock tracking in a database, personalized recipe suggestions. Full product cycle — ideation, feasibility, prototyping, pitch. Strong focus on teamwork and project management.</div>
+          <div class="project-tech"><span>Python</span><span>Database</span><span>Team Project</span><span>Agile</span></div>
         </div>
 
       </div>
     </div>
   </section>
 
-
-
   <div id="footer-placeholder"></div>
-
-
-
-
-
 
   <script src="../js/scroll-reveal.js" defer></script>
   <script src="../js/nav.js" defer></script>
@@ -199,5 +232,21 @@
   <script src="../js/theme.js" defer></script>
   <script src="../js/includes.js" defer></script>
   <script src="../js/project-filter.js" defer></script>
+
+  <script>
+    // Pour chaque image de projet, applique l'aspect-ratio réel de l'image au conteneur
+    // afin que la hauteur s'adapte automatiquement aux proportions de la capture.
+    function fitProjectImg(img) {
+      const wrap = img.closest('.project-img-wrap');
+      if (!wrap || !img.naturalWidth || !img.naturalHeight) return;
+      // La carte featured a un ratio fixe en CSS (21/9) — on ne l'écrase pas
+      if (img.closest('.project-card.featured')) return;
+      wrap.style.aspectRatio = img.naturalWidth + ' / ' + img.naturalHeight;
+    }
+    document.querySelectorAll('.project-img').forEach(img => {
+      if (img.complete) fitProjectImg(img);
+      else img.addEventListener('load', () => fitProjectImg(img));
+    });
+  </script>
 </body>
 </html>

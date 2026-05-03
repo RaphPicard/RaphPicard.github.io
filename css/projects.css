@@ -14,6 +14,31 @@
   justify-content: center;
   margin-top: 2.5rem;
 }
+
+
+/* ===== IMAGE DE PRÉVISUALISATION (page projets dédiée) ===== */
+/* Déborde des padding de la carte grâce aux marges négatives.
+   Pas de hauteur fixe — aspect-ratio est appliqué par JS au chargement. */
+.project-img-wrap {
+  margin: -1.75rem -1.75rem 1.25rem;
+  border-radius: calc(var(--radius) - 1px) calc(var(--radius) - 1px) 0 0;
+  overflow: hidden;
+  max-height: 280px;
+  background: var(--bg);
+  flex-shrink: 0;
+  margin-top: 0px;
+}
+/* Carte featured pleine largeur : ratio cinématique fixe, indépendant de l'image */
+.project-card.featured .project-img-wrap {
+  aspect-ratio: 21 / 9;
+  max-height: none;
+}
+.project-img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform 0.45s cubic-bezier(0.16,1,0.3,1);
+}
+.project-card:hover .project-img { transform: scale(1.04); }
 /* Grille 2 colonnes — la carte "featured" prendra les 2 colonnes via grid-column: span 2 */
 .projects-grid {
   display: grid;
