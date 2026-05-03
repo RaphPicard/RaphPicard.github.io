@@ -17,6 +17,10 @@ const WORDS = {
   good_practices: {
     en:['clean code', 'MVC' ,'RESTful APIs', 'SOLID', 'design patterns', 'SEP', 'clear & complete README', 'unit testing'],
     fr: ['du code propre', 'MVC', 'API REST', 'SOLID', 'modèles de conception', 'SEP', 'README clair et complet', 'test unitaire']
+  },
+  contact: {
+    en: ['YOU and ME !', 'for the FUTURE !', 'TOGETHER !'],
+    fr: ['VOUS et MOI !', 'pour le FUTUR !', 'ensemble']
   }
   // Exemple pour un deuxième typewriter :
   // about: {

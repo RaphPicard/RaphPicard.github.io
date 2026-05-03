@@ -14,15 +14,16 @@
   display: flex; gap: 1rem; align-items: flex-start;
   padding: 1.1rem 1.25rem;
   background: var(--bg-card);
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
   border-radius: var(--radius-sm);
   transition: all 0.25s ease;
 }
 /* Au survol : déplacement horizontal de 4px (translateX) — donne un effet d'interactivité */
 .highlight-item:hover {
-  border-color: var(--accent-soft);
+  border-color: var(--accent-light);
+  background-color: var(--accent-soft);
   box-shadow: var(--shadow-sm);
-  transform: translateX(4px);
+  transform: translateX(5px) scale(1.08);
 }
 .highlight-icon {
   font-size: 1.25rem; flex-shrink: 0; /* empêche l'icône de rétrécir si le texte est long */
@@ -46,6 +47,7 @@
 .meta-item {
   padding: 1.1rem 1.25rem;
   background: var(--bg-card); border: 1px solid var(--border);
+  border: 2px solid var(--border);
   border-radius: var(--radius-sm);
 }
 .meta-item-available {
