@@ -15,7 +15,7 @@ const WORDS = {
     fr: ['des agents IA', 'des pipelines data', 'des systèmes ML', 'des workflows agentiques', 'des outils web']
   },
   good_practices: {
-    en:['clean code', 'MVC' ,'REST', 'SOLID', 'design patterns', 'SEP', 'clear & complete README', 'unit testing'],
+    en:['clean code', 'MVC' ,'RESTful APIs', 'SOLID', 'design patterns', 'SEP', 'clear & complete README', 'unit testing'],
     fr: ['du code propre', 'MVC', 'API REST', 'SOLID', 'modèles de conception', 'SEP', 'README clair et complet', 'test unitaire']
   }
   // Exemple pour un deuxième typewriter :
