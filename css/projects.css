@@ -141,6 +141,29 @@
   background: var(--bg); border: 1px solid var(--border);
   color: var(--text-secondary);
 }
+
+
+/* Coworkers GitHub — masqué par défaut, visible dès qu'un <a> est présent */
+.project-coworkers {
+  display: none; /* masqué par défaut, affiché en flex dès qu'un lien est présent grâce au sélecteur :has(> a) */
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+.project-coworkers:has(> a) { display: flex; } /* Affiche le conteneur dès qu'il contient au moins un lien */
+.project-coworkers::before { content: 'with '; } /* Préfixe "with" avant les liens des coworkers */
+.project-coworkers a { color: var(--accent); transition: opacity 0.2s; }
+.project-coworkers a:hover { opacity: 0.7; }
+.project-card.featured .project-coworkers a { color: #60A5FA; }
+
+
+
+
+
 /* Badge doré "Academic Project" sur la carte featured */
 .project-highlight-badge {
   display: inline-flex; align-items: center; gap: 0.3rem;
