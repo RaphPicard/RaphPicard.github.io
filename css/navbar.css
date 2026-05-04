@@ -154,6 +154,8 @@ nav {
   display: none;
   flex-direction: column; gap: 5px;
   cursor: pointer; padding: 6px;
+  background: none; border: none; /* supprime le rendu natif du navigateur — sans ça, l'OS applique son propre fond en dark mode */
+  -webkit-appearance: none; appearance: none;
 }
 /* Les trois barres horizontales du hamburger */
 .nav-mobile-btn span {
