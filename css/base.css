@@ -17,6 +17,27 @@ a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 ul { list-style: none; }
 
+/* ===== BARRE DE PROGRESSION DE LECTURE ===== */
+/* Barre verticale fixe sur le bord gauche — hauteur animée par la progression du scroll */
+.scroll-progress {
+  position: fixed; left: 0; top: 100px; /* 100px pour ne pas chevaucher la navbar */
+  width: 5px; height: 100%;
+  background: linear-gradient(to bottom, var(--accent), #60A5FA);
+  transform-origin: top center;
+  transform: scaleY(0);
+  /* animation-timeline: scroll(root) — pilote l'animation par la position de défilement du document
+     sans aucun JS : la valeur de scaleY passe de 0 à 1 au fur et à mesure que l'utilisateur scrolle */
+  animation: scroll-grow linear both;
+  animation-timeline: scroll(root);
+  z-index: 1000;
+  pointer-events: none; /* ne capture aucun clic */
+  border-radius: 0 2px 2px 0;
+}
+@keyframes scroll-grow {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+
 /* ===== GRAIN TEXTURE OVERLAY ===== */
 body::before {
   content: '';
