@@ -35,6 +35,14 @@
   color: #fff;
 }
 
+/* Count dynamique lu depuis data-count via attr() — jamais écrasé par innerHTML de lang.js */
+.pf-btn[data-count]::after {
+  content: ' (' attr(data-count) ')'; /* attr() insère la valeur de l'attribut data-count */
+  font-size: 0.65rem;
+  opacity: 0.55;
+}
+.pf-btn.pf-active[data-count]::after { opacity: 0.8; } /* légèrement plus visible sur bouton actif */
+
 /* La transition de disparition réutilise le "transition: all" existant sur .project-card */
 .project-card.pf-hidden {
   opacity: 0; /* Fait disparaître la carte */

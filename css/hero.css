@@ -91,8 +91,16 @@
 }
 .hero-tagline strong { color: var(--text-primary); font-weight: 600; }
 .hero-ctas {
-  display: flex; gap: 0.75rem; flex-wrap: wrap; /* flex-wrap permet au boutons de passer à la ligne sur petits écrans */
+  display: flex; gap: 0.75rem; flex-wrap: wrap; /* flex-wrap permet aux boutons de passer à la ligne sur petits écrans */
 }
+/* Les deux petits boutons partagent la première ligne équitablement */
+.hero-ctas .btn-tertiary,
+.hero-ctas .btn-secondary { flex: 2; justify-content: center; }
+/* View Projects prend toute la largeur — égale à la somme des deux boutons + gap au-dessus */
+.hero-ctas .btn-primary   { flex-basis: 100%; justify-content: center; }
+
+
+
 /* Classe de base partagée — évite la duplication de display, border-radius et will-change
    entre .btn-primary, .btn-secondary et .nav-cta */
 .btn {
@@ -134,6 +142,24 @@
   border-color: #9CA3AF;
   box-shadow: var(--shadow-md);
 }
+.btn-tertiary {
+  font-size: 0.9rem; font-weight: 500;
+  color: var(--text-primary);
+  background: var(--accent-soft);
+  border: 1px solid var(--border);
+  padding: 0.8rem 1.6rem;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.25s ease-out,
+              color 0.2s ease-out;
+}
+.btn-tertiary:hover {
+  color: var(--accent);
+  box-shadow: var(--shadow-sm);
+}
+
+
+
+
 .hero-socials {
   display: flex; align-items: center; gap: 1rem;
   margin-top: 2.5rem;

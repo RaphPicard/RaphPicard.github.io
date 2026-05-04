@@ -74,6 +74,7 @@
           <div class="hero-label reveal" data-en="Available · Starting Jan 2028" data-fr="Disponible · À partir de Janvier 2028">Available · Starting Jan 2028</div>
           <!-- reveal-delay-1 : délai de 0.1s pour créer un effet de cascade avec les éléments voisins -->
           <h1 class="hero-name reveal reveal-delay-1">Raphaël<br><em>Picard</em></h1>
+          
           <!-- em : redéfini en CSS (font-style: normal) et utilisé uniquement pour le dégradé bleu sur "Picard" -->
           <p class="hero-role reveal reveal-delay-2" data-en="Software Engineer & Big Data · AI Enthusiast" data-fr="Ingénieur Logiciel & Big Data · Passionné d'IA">Software Engineer & Big Data · AI Enthusiast</p>
           
@@ -90,15 +91,20 @@
             </span>
           </p>
           <div class="hero-ctas reveal reveal-delay-5">
-            <a href="html/projects.html" class="btn btn-primary">
-              <!-- SVG inline : icône boîte/cube — viewBox définit l'espace de coordonnées, stroke="currentColor" hérite la couleur du texte parent -->
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/></svg>
-              <span data-en="View Projects" data-fr="Voir mes projets">View Projects</span>
+            <!-- download : déclenche le téléchargement plutôt que la navigation -->
+            <a href="assets/CV_Raphael_Picard.pdf" download class="btn btn-tertiary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span data-en="Download CV" data-fr="Télécharger CV">Download CV</span>
             </a>
             <!-- href="mailto:" : ouvre le client mail natif de l'utilisateur avec l'adresse pré-remplie -->
             <a href="mailto:raphael.picard@cpe.fr" class="btn btn-secondary">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
               <span data-en="Get in touch" data-fr="Me contacter">Get in touch</span>
+            </a>
+             <a href="html/projects.html" class="btn btn-primary">
+              <!-- SVG inline : icône boîte/cube — viewBox définit l'espace de coordonnées, stroke="currentColor" hérite la couleur du texte parent -->
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/></svg>
+              <span data-en="View Projects" data-fr="Voir mes projets">View Projects</span>
             </a>
           </div>
           <div class="hero-socials reveal reveal-delay-5">

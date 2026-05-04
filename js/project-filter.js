@@ -9,6 +9,8 @@
     const grid = document.querySelector('.projects-grid');
     if (!filtersEl || !grid) return; // sécurité : sort si la section n'existe pas sur la page
 
+    updateCounts(filtersEl, grid); // affiche le count sur chaque bouton dès l'initialisation
+
     // Délégation d'événement : on écoute sur le conteneur parent plutôt que sur chaque bouton
     // → un seul listener suffit, même si des boutons sont ajoutés dynamiquement plus tard
     filtersEl.addEventListener('click', e => {
@@ -21,6 +23,20 @@
       filtersEl.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('pf-active'));
       btn.classList.add('pf-active');
       applyFilter(btn.dataset.filter, grid); // dataset.filter lit l'attribut data-filter="..."
+    });
+  }
+
+  function updateCounts(filtersEl, grid) {
+    const cards = [...grid.querySelectorAll('.project-card')];
+    filtersEl.querySelectorAll('[data-filter]').forEach(btn => {
+      const filter = btn.dataset.filter;
+      // 'all' → total des cartes ; sinon → cartes dont data-tech contient le filtre
+      const count = filter === 'all'
+        ? cards.length
+        : cards.filter(c => (c.dataset.tech || '').split(' ').includes(filter)).length;
+      // data-count est lu par CSS via content: attr(data-count) dans ::after
+      // → immune aux écrasements de innerHTML par lang.js (data-en / data-fr)
+      btn.dataset.count = count;
     });
   }
 
