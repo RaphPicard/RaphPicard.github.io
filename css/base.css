@@ -20,7 +20,7 @@ ul { list-style: none; }
 /* ===== BARRE DE PROGRESSION DE LECTURE ===== */
 /* Barre verticale fixe sur le bord gauche — hauteur animée par la progression du scroll */
 .scroll-progress {
-  position: fixed; left: 0; top: 100px; /* 100px pour ne pas chevaucher la navbar */
+  position: fixed; left: 0; top: 65px; /* 65px pour ne pas chevaucher la navbar */
   width: 5px; height: 100%;
   background: linear-gradient(to bottom, var(--accent), #60A5FA);
   transform-origin: top center;

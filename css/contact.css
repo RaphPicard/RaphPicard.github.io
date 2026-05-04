@@ -65,6 +65,58 @@
   color: var(--text-secondary); font-size: 1rem; line-height: 1.8;
 }
 
+
+
+
+/* ===== LIKE BUTTON ===== */
+.like-section {
+  margin-top: 0rem;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 0.6rem;
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--border-subtle);
+}
+.like-btn {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  background: none; border: 1.5px solid var(--border);
+  border-radius: 999px;
+  padding: 0.55rem 1.2rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-family: var(--font-sans); font-size: 0.9rem; font-weight: 500;
+  transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.2s;
+  will-change: transform;
+}
+.like-btn:hover:not(.liked) {
+  border-color: #e11d48; color: #e11d48;
+  transform: scale(1.05);
+}
+/* État "liké" — rouge, cursor pointer conservé car le bouton est un toggle */
+.like-btn.liked {
+  border-color: #fecdd3; background: #fff1f2; color: #e11d48;
+}
+.like-btn.liked:hover { opacity: 0.8; }
+html[data-theme="dark"] .like-btn.liked {
+  border-color: #4c1d30; background: #2d0a17; color: #fb7185;
+}
+.like-icon { font-size: 1.15rem; display: inline-block; }
+/* Animation pop au clic — scale rapide puis retour */
+.like-btn.like-pop .like-icon {
+  animation: like-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes like-pop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.5); }
+  100% { transform: scale(1); }
+}
+.like-label {
+  font-family: var(--font-mono); font-size: 0.7rem;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+
+
 /* ===== FOOTER ===== */
 footer {
   padding: 2.5rem 0;
