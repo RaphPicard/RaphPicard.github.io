@@ -93,41 +93,46 @@
 .hero-ctas {
   display: flex; gap: 0.75rem; flex-wrap: wrap; /* flex-wrap permet au boutons de passer à la ligne sur petits écrans */
 }
+/* Classe de base partagée — évite la duplication de display, border-radius et will-change
+   entre .btn-primary, .btn-secondary et .nav-cta */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  border-radius: 10px;
+  will-change: transform;
+}
+.btn:hover { transform: translateY(-3px) scale(1.03); }
+/* :focus-visible : outline uniquement en navigation clavier, invisible au clic souris */
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
 /* Bouton principal (CTA) — fond bleu avec ombre colorée pour l'effet "lifted" */
 .btn-primary {
-  display: inline-flex; align-items: center; gap: 0.5rem;
   font-size: 0.9rem; font-weight: 600;
   color: #fff; background: var(--accent);
-  padding: 0.8rem 1.6rem; border-radius: 10px;
+  padding: 0.8rem 1.6rem;
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
               box-shadow 0.25s ease-out,
               background-color 0.2s ease-out;
-  will-change: transform;
   box-shadow: 0 4px 14px rgba(29,78,216,0.25);
 }
 .btn-primary:hover {
   background: #1e40af;
   box-shadow: 0 10px 28px rgba(29,78,216,0.42);
-  transform: translateY(-3px) scale(1.03);
 }
 /* Bouton secondaire — fond blanc avec bordure subtile */
 .btn-secondary {
-  display: inline-flex; align-items: center; gap: 0.5rem;
   font-size: 0.9rem; font-weight: 500;
   color: var(--text-primary);
   background: var(--bg-card);
   border: 1px solid var(--border);
-  padding: 0.8rem 1.6rem; border-radius: 10px;
+  padding: 0.8rem 1.6rem;
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
               box-shadow 0.25s ease-out,
               border-color 0.2s ease-out;
-  will-change: transform;
   box-shadow: var(--shadow-sm);
 }
 .btn-secondary:hover {
   border-color: #9CA3AF;
   box-shadow: var(--shadow-md);
-  transform: translateY(-3px) scale(1.03);
 }
 .hero-socials {
   display: flex; align-items: center; gap: 1rem;
@@ -265,3 +270,11 @@
 .hero-floating.f1 { animation: orbit-rect 28s linear infinite; animation-delay: 0s; }
 .hero-floating.f2 { animation: orbit-rect 28s linear infinite; animation-delay: calc(-28s / 3); }
 .hero-floating.f3 { animation: orbit-rect 28s linear infinite; animation-delay: calc(-28s * 2 / 3); }
+
+/* Accessibilité : désactive toutes les animations pour les utilisateurs qui le préfèrent */
+@media (prefers-reduced-motion: reduce) {
+  .hero-floating { animation: none; }
+  .tw-cursor    { animation: none; }
+  .hero-label   { animation: none; }
+  .hcard-badge::before { animation: none; }
+}

@@ -82,6 +82,9 @@ nav {
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .nav-links a:not(.nav-cta):hover::after { transform: scaleX(1); }
+/* Lien actif au scroll — togglé via classList dans includes.js (plus propre que a.style.color) */
+.nav-links a.active { color: var(--accent); }
+.nav-links a:not(.nav-cta).active::after { transform: scaleX(1); } /* soulignement persistant sur le lien actif */
 /* Bouton "Contact me" dans la nav */
 .nav-cta {
   font-size: 0.875rem; font-weight: 600;

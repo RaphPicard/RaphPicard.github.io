@@ -7,8 +7,9 @@
   const inSubdir = window.location.pathname.includes('/html/');
   const base = inSubdir ? '../' : '';
 
-  const headerPromise = fetch(base + 'html/header.html').then(r => r.text());
-  const footerPromise = fetch(base + 'html/footer.html').then(r => r.text());
+  // r.ok vérifie que le statut HTTP est 2xx — fetch ne rejette pas sur un 404
+  const headerPromise = fetch(base + 'html/header.html').then(r => { if (!r.ok) throw new Error('header'); return r.text(); });
+  const footerPromise = fetch(base + 'html/footer.html').then(r => { if (!r.ok) throw new Error('footer'); return r.text(); });
 
   Promise.all([headerPromise, footerPromise]).then(([headerHTML, footerHTML]) => {
     const navPlaceholder = document.getElementById('nav-placeholder');
@@ -50,7 +51,8 @@
         if (window.scrollY >= s.offsetTop - 130) current = s.id;
       });
       navLinks.forEach(a => {
-        a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+        // classList.toggle(class, condition) : ajoute ou retire la classe selon la condition
+        a.classList.toggle('active', a.getAttribute('href') === '#' + current);
       });
     }, { passive: true });
 
@@ -59,5 +61,12 @@
     if (themeIcon && document.documentElement.getAttribute('data-theme') === 'dark') {
       themeIcon.textContent = '☀️';
     }
+
+    // Sync de la langue après injection du header (langLabel est dans le partial)
+    if (typeof applyLang === 'function') applyLang();
+  }).catch(() => {
+    // Fallback minimal si le réseau bloque le chargement des partials
+    const navPlaceholder = document.getElementById('nav-placeholder');
+    if (navPlaceholder) navPlaceholder.innerHTML = '<nav style="padding:1rem;text-align:center;color:var(--text)">Navigation indisponible</nav>';
   });
 })();

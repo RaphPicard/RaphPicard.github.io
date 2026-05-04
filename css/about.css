@@ -46,28 +46,17 @@
 }
 .meta-item {
   padding: 1.1rem 1.25rem;
-  background: var(--bg-card); border: 1px solid var(--border);
+  background: var(--bg-card);
   border: 2px solid var(--border);
   border-radius: var(--radius-sm);
 }
-.meta-item-available {
-  padding: 1.1rem 1.25rem;
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  border-color: var(--status-available);
-  background: var(--status-available-soft);
-}
-.meta-item-unavailable {
-  padding: 1.1rem 1.25rem;
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  border-color: var(--status-unavailable);
-  background: var(--status-unavailable-soft);
-}
+/* Modificateurs : écrasent uniquement la couleur de bordure et de fond, le reste vient de .meta-item */
+.meta-item--available   { border-color: var(--status-available);   background: var(--status-available-soft); }
+.meta-item--unavailable { border-color: var(--status-unavailable); background: var(--status-unavailable-soft); }
 
+/* .label et .value partagés par toutes les variantes via le sélecteur de base .meta-item */
 .meta-item .label { font-family: var(--font-mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.3rem; }
 .meta-item .value { font-size: 0.88rem; font-weight: 600; color: var(--text-primary); display: flex; align-items: center; gap: 0.35rem; }
-.meta-item-available .label { font-family: var(--font-mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.3rem; }
-.meta-item-available .value { font-size: 0.88rem; font-weight: 600; color: var(--status-available); display: flex; align-items: center; gap: 0.35rem; }
-.meta-item-unavailable .label { font-family: var(--font-mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.3rem; }
-.meta-item-unavailable .value { font-size: 0.88rem; font-weight: 600; color: var(--status-unavailable); display: flex; align-items: center; gap: 0.35rem; }
+/* Seule la couleur du .value change selon la variante */
+.meta-item--available .value   { color: var(--status-available); }
+.meta-item--unavailable .value { color: var(--status-unavailable); }
