@@ -42,6 +42,12 @@ html[data-theme="dark"] .hcard-avatar {
 /* Grain légèrement plus visible en dark — renforce l'esthétique "terminal/hacker" */
 html[data-theme="dark"] body::before { opacity: 0.65; }
 
+/* Spotlight plus intense en dark mode (fond sombre = halo plus lisible) */
+html[data-theme="dark"] body::after {
+  background: radial-gradient(600px at var(--mx, -9999px) var(--my, -9999px),
+    rgba(59, 130, 246, 0.09), transparent 15%);
+}
+
 /* Carte featured déjà sombre sur desktop — ajustement en dark mode */
 html[data-theme="dark"] .project-card.featured {
   background: linear-gradient(145deg, #1C2128 0%, #161B22 100%);
