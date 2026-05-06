@@ -1,5 +1,5 @@
-# Raphouman.github.io
+# RaphPicard.github.io
 My portfolio !
 
 # LINK :
-https://raphouman.github.io
+https://raphpicard.github.io
