@@ -53,6 +53,12 @@ nav {
   color: var(--text-primary); letter-spacing: -0.02em;
 }
 .nav-logo span { color: var(--accent); }
+
+/* Réserve la place de l'avatar fixe sans décaler le logo sur mobile. */
+@media (min-width: 769px) {
+  .nav-logo { margin-left: 4rem; }
+}
+
 .nav-links {
   display: flex; align-items: center; gap: 0.25rem;
 }
