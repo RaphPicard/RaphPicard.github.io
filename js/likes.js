@@ -9,7 +9,7 @@
   const KEY_COUNT = 'portfolio_like_count'; // nombre de likes stocké localement
 
   // Valeur de départ affichée à la première visite — donne une impression d'activité initiale
-  const BASE_COUNT = 42;
+  const BASE_COUNT = 68;
 
   function init() {
     const btn     = document.getElementById('likeBtn');
