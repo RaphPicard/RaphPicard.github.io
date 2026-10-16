@@ -203,7 +203,10 @@ html.sr-on .sr-stage { display: block; }
   pointer-events: auto; /* .sr-ui laisse passer la souris à travers : sans ça, molette et barre de défilement iraient à la scène */
   flex: 1 1 auto; min-height: 4.5em; overflow-y: auto; overscroll-behavior: contain;
   padding-right: 0.5rem; scrollbar-width: thin; scrollbar-color: var(--sr-glass-border) transparent;
-  -webkit-mask-image: linear-gradient(180deg, #000 85%, transparent); mask-image: linear-gradient(180deg, #000 85%, transparent);
+  /* fondu sur les 1.6 dernières lignes, et autant de marge sous le texte : en fin de défilement,
+     la dernière ligne remonte au-dessus du fondu et se lit en entier */
+  padding-bottom: 1.6em;
+  -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 1.6em), transparent); mask-image: linear-gradient(180deg, #000 calc(100% - 1.6em), transparent);
 }
 .sr-focus-chips { justify-content: flex-start; }
 .sr-focus-chips span { font-size: calc(0.68rem * var(--sr-fit, 1)); }

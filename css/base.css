@@ -21,7 +21,7 @@ ul { list-style: none; }
 /* Barre verticale fixe sur le bord gauche — hauteur animée par la progression du scroll */
 .scroll-progress {
   position: fixed; left: 0; top: 65px; /* 65px pour ne pas chevaucher la navbar */
-  width: 5px; height: 100%;
+  width: 5px; height: calc(100% - 65px); /* 100% ferait dépasser la barre de 65px sous l'écran : elle semblerait finie avant la fin de la page */
   background: linear-gradient(to bottom, var(--accent), #60A5FA);
   transform-origin: top center;
   transform: scaleY(0);
