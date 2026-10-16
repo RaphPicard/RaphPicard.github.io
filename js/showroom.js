@@ -393,10 +393,10 @@ const nearestStep = (y) => tops.reduce((best, t, k) => (Math.abs(t - y) < Math.a
 const inShowroom = (y = scroller.y()) => y < tops[LAST] - 2;
 
 // Pagination à la molette  : un cran = une étape, verrouillé pendant l'animation
-const pager = { locked: false, timer: null, hAccum: 0, hLocked: false, hTimer: null, hLast: 0, hFiredAt: 0 };
+const pager = { locked: false, timer: null, hAccum: 0, hLocked: false, hTimer: null, hLast: 0, hFiredAt: 0, vLast: 0, vTime: 0, vArmed: true };
 const goStep = (k) => {
   k = clamp(k, 0, LAST);
-  pager.locked = true;
+  pager.locked = true; pager.vArmed = false;
   const duration = k === LAST || k === 0 ? 1.4 : 1.15;
   scroller.to(tops[k], duration);
   clearTimeout(pager.timer);
@@ -432,9 +432,42 @@ window.addEventListener('wheel', (e) => {
   const atGridTop = y <= tops[LAST] + 4 && e.deltaY < 0;
   if (!inShowroom(y) && !atGridTop) return;
   e.preventDefault(); e.stopImmediatePropagation();
-  if (pager.locked || Math.abs(e.deltaY) < 4) return;
+  // Un geste = une étape : l'inertie du trackpad qui continue après l'animation ne doit pas relancer d'étape.
+  // On se réarme sur une pause (> 150 ms) ou sur un delta qui remonte nettement (= nouveau swipe).
+  const mag = Math.abs(e.deltaY), now = performance.now();
+  if (now - pager.vTime > 150 || (mag > 10 && mag > pager.vLast * 1.6)) pager.vArmed = true;
+  pager.vLast = mag; pager.vTime = now;
+  if (pager.locked || !pager.vArmed || mag < 4) return;
   goStep(step + (e.deltaY > 0 ? 1 : -1));
 }, { passive: false, capture: true });
+
+// Tactile : dans le showroom on bloque le scroll natif (son élan sautait le focus et se battait avec le recalage)
+// et un swipe vertical = une étape, comme la molette
+const touch = { x0: 0, y0: 0, captured: false };
+window.addEventListener('touchstart', (e) => {
+  const t = e.touches[0];
+  touch.x0 = t.clientX; touch.y0 = t.clientY; touch.captured = false;
+}, { passive: true });
+window.addEventListener('touchmove', (e) => {
+  if (e.touches.length > 1) return; // pinch-zoom
+  const y = scroller.y();
+  if (!ready) { if (inShowroom(y)) e.preventDefault(); return; }
+  const dy = touch.y0 - e.touches[0].clientY; // > 0 : le contenu monte (on descend dans la page)
+  const desc = e.target.closest?.('.is-scrolling .sr-focus-desc');
+  if (desc && !touch.captured && (dy > 0 ? desc.scrollTop + desc.clientHeight < desc.scrollHeight - 1 : desc.scrollTop > 0)) return;
+  const atGridTop = y <= tops[LAST] + 4 && dy < 0;
+  if (!inShowroom(y) && !atGridTop) return;
+  e.preventDefault();
+  touch.captured = true;
+}, { passive: false });
+window.addEventListener('touchend', (e) => {
+  if (!touch.captured) return;
+  touch.captured = false;
+  const t = e.changedTouches[0];
+  const dx = t.clientX - touch.x0, dy = touch.y0 - t.clientY;
+  if (pager.locked || carousel.dragging || Math.abs(dy) < 40 || Math.abs(dy) < Math.abs(dx)) return;
+  goStep(nearestStep(scroller.y()) + (dy > 0 ? 1 : -1));
+}, { passive: true });
 
 // Sur mobile (scroll tactile natif) : on se recale sur l'étape la plus proche quand le scroll s'arrête
 let settleTimer = null;
