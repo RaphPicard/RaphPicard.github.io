@@ -1,0 +1,278 @@
+/* ===== SHOWROOM 3D (en haut de html/projects.html) =====
+   Chargé uniquement par la page Projets : le reste du portfolio n'est pas concerné.
+   html.sr-on   → le navigateur sait faire de la 3D (posé par le petit script du <head>)
+   html.sr-ready → les textures sont chargées, l'intro peut jouer
+   html.sr-off  → pas de WebGL / erreur : la page redevient exactement l'ancienne page Projets */
+
+/* La couleur d'ambiance est une vraie propriété CSS typée : le navigateur peut donc l'animer en douceur */
+@property --sr-tint {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #3D7EFF;
+}
+
+#showroom { display: none; position: relative; padding: 0; } /* annule le padding: 6rem 0 des <section> de layout.css */
+html.sr-on #showroom { display: block; }
+html.sr-off .sr-stage { display: none; }
+
+/* 3 étapes plein écran qui ne contiennent rien : elles « fabriquent » la longueur de scroll */
+.sr-step { height: 100vh; height: 100svh; }
+
+/* Lenis gère le défilement : on coupe le scroll-behavior: smooth natif de base.css pour éviter un double lissage */
+html.lenis, html.lenis body { height: auto; }
+html.lenis { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* ===== COULEURS DE LA SCÈNE =====
+   Mode clair par défaut, écrasé par html[data-theme="dark"] (même logique que variables.css / dark-mode.css).
+   Les couleurs de la 3D elle-même (panneaux, halo au sol) sont gérées dans js/showroom.js. */
+.sr-stage {
+  --sr-bg:           #F7F6F3;                 /* même fond que --bg du site */
+  --sr-bg-top:       #FBFAF7;
+  --sr-bg-bottom:    #ECEAE4;
+  --sr-halo:         22%;                     /* intensité du halo teinté derrière les panneaux */
+  --sr-fg:           #0D1117;                 /* texte principal */
+  --sr-fg-2:         rgba(13,17,23,0.66);     /* texte secondaire */
+  --sr-fg-3:         rgba(13,17,23,0.45);     /* indications discrètes */
+  --sr-glass:        rgba(255,255,255,0.55);  /* fond des boutons / pastilles en verre */
+  --sr-glass-border: rgba(13,17,23,0.12);
+  --sr-dot:          rgba(13,17,23,0.2);
+  --sr-invert-bg:    #0D1117;                 /* survol : le bouton s'inverse */
+  --sr-invert-fg:    #FFFFFF;
+  --sr-card:         rgba(255,255,255,0.72);  /* fiche projet sur mobile */
+  --sr-text-shadow:  0 4px 30px rgba(247,246,243,0.9);
+  --sr-vignette:     rgba(40,50,80,0.10);
+  --sr-tint-filter:  brightness(0.78) saturate(1.2); /* teinte assombrie pour rester lisible sur fond clair */
+}
+html[data-theme="dark"] .sr-stage {
+  --sr-bg:           #05070C;
+  --sr-bg-top:       #04060B;
+  --sr-bg-bottom:    #0A0D16;
+  --sr-halo:         30%;
+  --sr-fg:           #F2F4F8;
+  --sr-fg-2:         rgba(242,244,248,0.7);
+  --sr-fg-3:         rgba(242,244,248,0.45);
+  --sr-glass:        rgba(255,255,255,0.07);
+  --sr-glass-border: rgba(255,255,255,0.16);
+  --sr-dot:          rgba(255,255,255,0.28);
+  --sr-invert-bg:    #F2F4F8;
+  --sr-invert-fg:    #05070C;
+  --sr-card:         rgba(5,7,12,0.62);
+  --sr-text-shadow:  0 6px 40px rgba(0,0,0,0.6);
+  --sr-vignette:     rgba(0,0,0,0.65);
+  --sr-tint-filter:  brightness(1.35);
+}
+
+/* ===== SCÈNE FIXE ===== */
+.sr-stage {
+  --sr-tint: #3D7EFF;
+  position: fixed; inset: 0; z-index: 5;
+  display: none;
+  color: var(--sr-fg);
+  background: var(--sr-bg);
+  overflow: hidden;
+  transition: --sr-tint 0.9s ease, background-color 0.25s ease, color 0.25s ease;
+  -webkit-user-select: none; user-select: none;
+}
+html.sr-on .sr-stage { display: block; }
+
+/* Fond : halo teinté derrière les panneaux + sol plus clair */
+.sr-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(55% 50% at 50% 46%, color-mix(in srgb, var(--sr-tint) var(--sr-halo), transparent), transparent 72%),
+    radial-gradient(90% 55% at 50% 112%, color-mix(in srgb, var(--sr-tint) 38%, var(--sr-bg)), transparent 70%),
+    linear-gradient(180deg, var(--sr-bg-top) 0%, var(--sr-bg-bottom) 100%);
+}
+/* Grain + vignette par-dessus la 3D pour un rendu « photo » */
+.sr-grain {
+  position: absolute; inset: 0; pointer-events: none; z-index: 2;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  opacity: 0.06; mix-blend-mode: overlay;
+  box-shadow: inset 0 0 18vmax var(--sr-vignette);
+}
+
+.sr-canvas {
+  position: absolute; inset: 0; z-index: 1;
+  width: 100% !important; height: 100% !important;
+  touch-action: pan-y; /* le doigt peut toujours scroller verticalement ; l'horizontal fait tourner le carrousel */
+  cursor: grab;
+}
+.sr-stage.is-pointing .sr-canvas { cursor: pointer; }
+.sr-stage.is-grabbing .sr-canvas { cursor: grabbing; }
+
+/* ===== COUCHES D'INTERFACE (opacité pilotée par la timeline) ===== */
+.sr-ui {
+  position: absolute; inset: 0; z-index: 3;
+  pointer-events: none;
+  padding: calc(var(--nav-height) + 1.5rem) clamp(1.25rem, 5vw, 4rem) clamp(1.25rem, 4vh, 2.5rem);
+}
+.sr-ui a, .sr-ui button { pointer-events: auto; }
+
+.sr-eyebrow {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--sr-fg-2);
+}
+.sr-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--sr-tint); }
+
+.sr-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; }
+.sr-chips span {
+  font-family: var(--font-mono); font-size: 0.68rem;
+  padding: 0.22rem 0.6rem; border-radius: 999px;
+  color: var(--sr-fg);
+  background: var(--sr-glass);
+  border: 1px solid var(--sr-glass-border);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+
+.sr-btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-sans); font-size: 0.85rem; font-weight: 500;
+  color: var(--sr-fg); background: var(--sr-glass);
+  border: 1px solid var(--sr-glass-border); border-radius: 999px;
+  padding: 0.65rem 1.15rem; cursor: pointer;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  transition: background-color .25s ease, border-color .25s ease, transform .35s cubic-bezier(0.34,1.56,0.64,1), color .25s ease;
+}
+.sr-btn:hover { background: var(--sr-invert-bg); color: var(--sr-invert-fg); border-color: var(--sr-invert-bg); transform: translateY(-2px); }
+.sr-btn:focus-visible, .sr-round:focus-visible, .sr-dot:focus-visible { outline: 2px solid var(--sr-tint); outline-offset: 3px; }
+.sr-btn--solid { background: var(--sr-tint); border-color: transparent; color: #fff; }
+.sr-btn--solid:hover { background: var(--sr-invert-bg); color: var(--sr-invert-fg); }
+.sr-btn[hidden] { display: none; }
+
+.sr-round {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--sr-fg); background: var(--sr-glass);
+  border: 1px solid var(--sr-glass-border); cursor: pointer;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  transition: background-color .25s ease, color .25s ease, transform .35s cubic-bezier(0.34,1.56,0.64,1);
+}
+.sr-round:hover { background: var(--sr-invert-bg); color: var(--sr-invert-fg); transform: scale(1.08); }
+
+/* --- Étape 0 : carrousel --- */
+.sr-ui--carousel { display: flex; flex-direction: column; justify-content: space-between; }
+.sr-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+.sr-skip { font-size: 0.78rem; padding: 0.5rem 0.95rem; }
+.sr-bottom { display: flex; flex-direction: column; align-items: center; gap: 0.9rem; text-align: center; }
+.sr-counter { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.2em; color: var(--sr-tint); filter: var(--sr-tint-filter); }
+.sr-title {
+  font-family: var(--font-serif); font-weight: 600;
+  font-size: clamp(1.7rem, 3.6vw, 3rem); line-height: 1.08; letter-spacing: -0.02em;
+  max-width: 22ch; text-wrap: balance;
+  text-shadow: var(--sr-text-shadow);
+}
+.sr-nav { display: flex; align-items: center; gap: 1rem; margin-top: 0.4rem; }
+.sr-dots { display: flex; gap: 0.45rem; }
+.sr-dot {
+  width: 8px; height: 8px; padding: 0; border-radius: 999px; border: 0; cursor: pointer;
+  background: var(--sr-dot);
+  transition: width .45s cubic-bezier(0.16,1,0.3,1), background-color .3s ease;
+}
+.sr-dot.is-active { width: 26px; background: var(--sr-tint); filter: var(--sr-tint-filter); }
+.sr-hint { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sr-fg-3); }
+.sr-hint .sr-mouse {
+  display: inline-block; width: 14px; height: 20px; margin-right: 0.45rem; vertical-align: -5px;
+  border: 1.5px solid currentColor; border-radius: 8px; position: relative;
+}
+.sr-hint .sr-mouse::after {
+  content: ''; position: absolute; left: 50%; top: 3px; width: 2px; height: 4px; margin-left: -1px;
+  background: currentColor; border-radius: 2px; animation: sr-wheel 1.6s ease-in-out infinite;
+}
+@keyframes sr-wheel { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(6px); opacity: 0; } 100% { opacity: 0; } }
+
+/* --- Étape 1 : focus projet --- */
+.sr-ui--focus { display: flex; align-items: center; justify-content: flex-end; }
+/* La fiche tient toujours en entier à l'écran : js/showroom.js (fitFocusCard) baisse --sr-fit (1 → 0.72)
+   pour réduire le texte si besoin, et en dernier recours ajoute .is-scrolling (la description défile).
+   --sr-card-max : part de la hauteur disponible que la fiche peut occuper (réduite sur mobile). */
+.sr-focus-card {
+  width: min(500px, 38vw); max-height: calc(var(--sr-card-max, 1) * 100%);
+  display: flex; flex-direction: column; gap: calc(1rem * var(--sr-fit, 1));
+}
+.sr-focus-card > * { flex-shrink: 0; }
+/* En-tête : numéro + flèches ← →, toujours au même endroit quelle que soit la longueur du texte */
+.sr-focus-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.sr-focus-head .sr-round { width: 40px; height: 40px; }
+.sr-focus-nav { display: flex; gap: 0.5rem; }
+.sr-focus-index { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.14em; color: var(--sr-fg-2); }
+.sr-focus-title { font-family: var(--font-serif); font-weight: 600; font-size: calc(clamp(1.6rem, 2.6vw, 2.4rem) * var(--sr-fit, 1)); line-height: 1.12; letter-spacing: -0.02em; }
+.sr-focus-desc { font-size: calc(0.92rem * var(--sr-fit, 1)); line-height: 1.7; color: var(--sr-fg-2); }
+.sr-focus-card.is-scrolling .sr-focus-desc {
+  pointer-events: auto; /* .sr-ui laisse passer la souris à travers : sans ça, molette et barre de défilement iraient à la scène */
+  flex: 1 1 auto; min-height: 4.5em; overflow-y: auto; overscroll-behavior: contain;
+  padding-right: 0.5rem; scrollbar-width: thin; scrollbar-color: var(--sr-glass-border) transparent;
+  -webkit-mask-image: linear-gradient(180deg, #000 85%, transparent); mask-image: linear-gradient(180deg, #000 85%, transparent);
+}
+.sr-focus-chips { justify-content: flex-start; }
+.sr-focus-chips span { font-size: calc(0.68rem * var(--sr-fit, 1)); }
+.sr-focus-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; }
+
+/* --- Étape 2 : spirale --- */
+.sr-ui--wall { display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; }
+.sr-wall-title {
+  font-family: var(--font-serif); font-weight: 600;
+  font-size: clamp(2rem, 5vw, 4.2rem); line-height: 1.02; letter-spacing: -0.03em;
+  max-width: 14ch; margin: 0.8rem 0 1rem;
+  text-shadow: var(--sr-text-shadow);
+}
+.sr-wall-title em { font-style: italic; color: var(--sr-tint); filter: var(--sr-tint-filter); }
+.sr-wall-text { max-width: 38ch; color: var(--sr-fg-2); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.4rem; }
+
+/* --- Chargement --- */
+.sr-loader {
+  position: absolute; inset: 0; z-index: 4;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.9rem;
+  background: var(--sr-bg);
+  font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--sr-fg-2);
+}
+.sr-loader-pct { font-family: var(--font-serif); font-size: 2.6rem; letter-spacing: -0.02em; color: var(--sr-fg); text-transform: none; }
+.sr-loader-bar { width: 160px; height: 1px; background: var(--sr-glass-border); overflow: hidden; }
+.sr-loader-bar span { display: block; height: 100%; background: var(--sr-fg); transform: scaleX(0); transform-origin: left; transition: transform .3s ease; }
+
+/* Texte réservé aux lecteurs d'écran (annonce du projet affiché) */
+.sr-live { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ===== NAVBAR PENDANT LA 3D ===== */
+html.sr-stage-visible .scroll-progress { opacity: 0; }
+/* En mode clair la navbar normale va déjà bien sur la scène claire.
+   En mode sombre, elle passe en verre fumé plus transparent pour laisser voir la 3D. */
+html[data-theme="dark"].sr-stage-visible nav {
+  background: rgba(5, 7, 12, 0.45) !important;
+  border-bottom-color: rgba(255,255,255,0.08) !important;
+}
+html[data-theme="dark"].sr-stage-visible .nav-logo,
+html[data-theme="dark"].sr-stage-visible .nav-links a:not(.nav-cta),
+html[data-theme="dark"].sr-stage-visible .lang-toggle,
+html[data-theme="dark"].sr-stage-visible .theme-toggle { color: rgba(242,244,248,0.85); border-color: rgba(255,255,255,0.16); }
+html[data-theme="dark"].sr-stage-visible .nav-logo span { color: #9DB8FF; }
+html[data-theme="dark"].sr-stage-visible .nav-mobile-btn span { background: #F2F4F8; }
+html[data-theme="dark"].sr-stage-visible .nav-links a:not(.nav-cta):hover { background: rgba(255,255,255,0.08); color: #fff; }
+
+/* ===== MOBILE ===== */
+@media (max-width: 767px) {
+  .sr-ui { padding-top: calc(var(--nav-height) + 1rem); }
+  .sr-title { font-size: 1.55rem; }
+  .sr-hint { display: none; }
+  .sr-chips span { font-size: 0.64rem; }
+
+  /* Focus : panneau en haut, texte en bas sur un voile */
+  .sr-ui--focus { align-items: flex-end; justify-content: center; padding-bottom: 1.25rem; }
+  .sr-focus-card {
+    --sr-card-max: 0.62; /* laisse le haut de l'écran au panneau 3D */
+    width: 100%; gap: calc(0.7rem * var(--sr-fit, 1)); padding: 1.1rem 1.1rem 1.2rem; border-radius: 18px;
+    background: var(--sr-card); border: 1px solid var(--sr-glass-border);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  }
+  .sr-focus-title { font-size: calc(1.35rem * var(--sr-fit, 1)); }
+  .sr-focus-desc { font-size: calc(0.84rem * var(--sr-fit, 1)); line-height: 1.6; }
+
+  .sr-wall-title { font-size: 2.2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sr-hint .sr-mouse::after { animation: none; }
+  .sr-stage { transition: none; }
+}

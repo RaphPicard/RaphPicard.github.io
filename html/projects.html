@@ -15,6 +15,35 @@
 
   <script src="../js/theme-init.js"></script>
   <link rel="stylesheet" href="../css/style.css" />
+
+  <!-- ===== SHOWROOM 3D ===== -->
+  <link rel="stylesheet" href="../css/showroom.css" />
+  <!-- Active le showroom seulement si le navigateur sait faire du WebGL ; sinon la page reste la page Projets classique.
+       Filet de sécurité : si le module 3D ne démarre pas en 10 s (CDN bloqué…), on revient à la page classique. -->
+  <script>
+    (function () {
+      try {
+        var c = document.createElement('canvas');
+        if (!(window.WebGLRenderingContext && (c.getContext('webgl2') || c.getContext('webgl')))) return;
+        var h = document.documentElement;
+        h.classList.add('sr-on'); // active le showroom 3D
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+        setTimeout(function () {
+          if (!h.classList.contains('sr-ready')) { h.classList.remove('sr-on'); h.classList.add('sr-off'); }
+        }, 10000);
+      } catch (e) {}
+    })();
+  </script>
+  <!-- Import map : permet d'écrire `import * as THREE from 'three'` dans js/showroom.js (versions figées) -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/",
+        "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.3.23/dist/lenis.mjs"
+      }
+    }
+  </script>
 </head>
 
 <body>
@@ -23,6 +52,94 @@
   <div class="scroll-progress" aria-hidden="true"></div>
 
   <div id="nav-placeholder"></div>
+
+  <!-- =====================================================================
+       SHOWROOM 3D — les projets de la grille ci-dessous, en 3D (js/showroom.js)
+       Les 3 .sr-step sont vides : elles donnent la longueur de scroll qui pilote l'animation.
+       ===================================================================== -->
+  <section id="showroom" aria-label="Showroom 3D">
+    <div class="sr-step" data-step="carousel"></div>
+    <div class="sr-step" data-step="focus"></div>
+    <div class="sr-step" data-step="wall"></div>
+
+    <div class="sr-stage">
+      <div class="sr-bg" aria-hidden="true"></div>
+      <!-- le <canvas> WebGL est inséré ici par js/showroom.js -->
+      <div class="sr-grain" aria-hidden="true"></div>
+
+      <!-- Étape 0 : carrousel -->
+      <div class="sr-ui sr-ui--carousel">
+        <div class="sr-top">
+          <p class="sr-eyebrow" data-en="Projects · 3D showroom" data-fr="Projets · showroom 3D">Projects · 3D showroom</p>
+          <button type="button" class="sr-btn sr-skip" data-sr="skip">
+            <span data-en="Skip to the list" data-fr="Aller à la liste">Skip to the list</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          </button>
+        </div>
+        <div class="sr-bottom">
+          <span class="sr-counter"></span><!-- « 01 / N » rempli par js/showroom.js à partir des cartes de la grille -->
+          <h2 class="sr-title"></h2>
+          <div class="sr-chips"></div>
+          <div class="sr-nav">
+            <button type="button" class="sr-round" data-sr="prev" aria-label="Previous project">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+            </button>
+            <div class="sr-dots"></div>
+            <button type="button" class="sr-round" data-sr="next" aria-label="Next project">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+          <p class="sr-hint"><span class="sr-mouse" aria-hidden="true"></span><span data-en="Drag to browse · Scroll to dive in" data-fr="Glissez pour parcourir · Scrollez pour plonger">Drag to browse · Scroll to dive in</span></p>
+        </div>
+      </div>
+
+      <!-- Étape 1 : focus sur le projet courant -->
+      <div class="sr-ui sr-ui--focus">
+        <div class="sr-focus-card">
+          <div class="sr-focus-head">
+            <span class="sr-focus-index"></span>
+            <div class="sr-focus-nav">
+              <button type="button" class="sr-round" data-sr="prev" aria-label="Previous project">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+              </button>
+              <button type="button" class="sr-round" data-sr="next" aria-label="Next project">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+          </div>
+          <h2 class="sr-focus-title"></h2>
+          <!-- data-lenis-prevent : si la description doit défiler (petit écran), la molette la fait défiler elle, pas la page -->
+          <p class="sr-focus-desc" data-lenis-prevent></p>
+          <div class="sr-chips sr-focus-chips"></div>
+          <div class="sr-focus-actions">
+            <a class="sr-btn sr-btn--solid sr-github" href="#" target="_blank" rel="noopener">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              <span data-en="View the code" data-fr="Voir le code">View the code</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Étape 2 : spirale de tous les projets -->
+      <div class="sr-ui sr-ui--wall">
+        <p class="sr-eyebrow" data-en="The whole collection" data-fr="Toute la collection">The whole collection</p>
+        <h2 class="sr-wall-title"><span class="sr-wall-count"></span><!-- nombre de cartes de la grille, rempli par js/showroom.js --> <span data-en="projects, <em>one</em> engineer." data-fr="projets, <em>un</em> ingénieur.">projects, <em>one</em> engineer.</span></h2>
+        <p class="sr-wall-text" data-en="From data pipelines to AI agents, games and web apps. Keep scrolling for the full list with filters." data-fr="Des pipelines de données aux agents IA, en passant par les jeux et le web. Continuez à scroller pour la liste complète avec filtres.">From data pipelines to AI agents, games and web apps. Keep scrolling for the full list with filters.</p>
+        <button type="button" class="sr-btn sr-btn--solid" data-sr="skip">
+          <span data-en="See the full list" data-fr="Voir la liste complète">See the full list</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </button>
+      </div>
+
+      <!-- Chargement des textures -->
+      <div class="sr-loader" role="status">
+        <span data-en="Loading the 3D showroom" data-fr="Chargement du showroom 3D">Loading the 3D showroom</span>
+        <span class="sr-loader-pct">0 %</span>
+        <span class="sr-loader-bar"><span></span></span>
+      </div>
+      <p class="sr-live" aria-live="polite"></p>
+    </div>
+  </section>
 
   <!-- ===================================================
        IMAGES DE PROJET : déposer mes captures dans assets/
@@ -304,6 +421,10 @@
   <script src="../js/project-filter.js" defer></script>
 
   <script src="../js/project-img-fit.js" defer></script>
+
+  <!-- Showroom 3D : GSAP (timeline) puis le module Three.js. Tous deux en différé : ils s'exécutent dans cet ordre. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script type="module" src="../js/showroom.js"></script>
 
 </body>
 </html>
