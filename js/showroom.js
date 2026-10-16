@@ -393,7 +393,7 @@ const nearestStep = (y) => tops.reduce((best, t, k) => (Math.abs(t - y) < Math.a
 const inShowroom = (y = scroller.y()) => y < tops[LAST] - 2;
 
 // Pagination à la molette  : un cran = une étape, verrouillé pendant l'animation
-const pager = { locked: false, timer: null, hAccum: 0 };
+const pager = { locked: false, timer: null, hAccum: 0, hLocked: false, hTimer: null, hLast: 0, hFiredAt: 0 };
 const goStep = (k) => {
   k = clamp(k, 0, LAST);
   pager.locked = true;
@@ -413,10 +413,19 @@ window.addEventListener('wheel', (e) => {
   const horizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY) * 1.2;
 
   // Glissement horizontal au trackpad = changer de projet (carrousel ou spirale)
-  if (horizontal && inShowroom(y) && step !== 1) {
+  if (horizontal && inShowroom(y)) {
     e.preventDefault(); e.stopImmediatePropagation();
+    // Un swipe = un seul projet : on ignore la suite du geste (et l'inertie macOS)
+    // jusqu'à ce que les événements wheel cessent pendant 180 ms…
+    const mag = Math.abs(e.deltaX), now = performance.now();
+    clearTimeout(pager.hTimer);
+    pager.hTimer = setTimeout(() => { pager.hLocked = false; pager.hAccum = 0; pager.hLast = 0; }, 180);
+    // …ou qu'un nouveau swipe démarre : l'inertie ne fait que décroître, un nouveau geste fait remonter le delta
+    if (pager.hLocked && now - pager.hFiredAt > 200 && mag > 10 && mag > pager.hLast * 1.6) { pager.hLocked = false; pager.hAccum = 0; }
+    pager.hLast = mag;
+    if (pager.hLocked) return;
     pager.hAccum += e.deltaX;
-    if (Math.abs(pager.hAccum) > 60) { pager.hAccum > 0 ? carousel.next() : carousel.prev(); pager.hAccum = 0; }
+    if (Math.abs(pager.hAccum) > 30) { pager.hAccum > 0 ? carousel.next() : carousel.prev(); pager.hAccum = 0; pager.hLocked = true; pager.hFiredAt = now; }
     return;
   }
   // Molette verticale dans le showroom (ou en remontant tout en haut de la grille) = étape suivante / précédente
@@ -601,7 +610,7 @@ window.addEventListener('pointermove', (e) => {
   pointer.y = (e.clientY / window.innerHeight) * 2 - 1;
 }, { passive: true });
 
-const drag = { active: false, startX: 0, startY: 0, lastX: 0, lastT: 0, moved: false, axis: 0 };
+const drag = { active: false, startX: 0, startY: 0, lastX: 0, lastT: 0, moved: false, axis: 0, startSlot: 0 };
 const pxPerSlot = () => Math.max(220, window.innerWidth * 0.3);
 
 canvas.addEventListener('pointerdown', (e) => {
@@ -609,6 +618,7 @@ canvas.addEventListener('pointerdown', (e) => {
   drag.active = true; drag.moved = false; drag.axis = 0;
   drag.startX = drag.lastX = e.clientX; drag.startY = e.clientY; drag.lastT = performance.now();
   carousel.velocity = 0;
+  drag.startSlot = Math.round(carousel.target);
 });
 window.addEventListener('pointermove', (e) => {
   if (!drag.active) return;
@@ -621,7 +631,8 @@ window.addEventListener('pointermove', (e) => {
   if (drag.axis !== 1) return;
   const now = performance.now();
   const ds = -dx / pxPerSlot();
-  carousel.pos += ds; carousel.target = carousel.pos;
+  // le doigt ne peut pas entraîner le carrousel au-delà du projet voisin
+  carousel.pos = clamp(carousel.pos + ds, drag.startSlot - 1, drag.startSlot + 1); carousel.target = carousel.pos;
   carousel.velocity = ds / Math.max(1, now - drag.lastT) * 16; // slots par image
   drag.lastX = e.clientX; drag.lastT = now;
 });
@@ -629,8 +640,10 @@ const endDrag = (e) => {
   if (!drag.active) return;
   drag.active = false;
   if (carousel.dragging) {
-    // inertie : on prolonge le geste puis on s'aimante sur le projet le plus proche
-    carousel.target = Math.round(carousel.pos + clamp(carousel.velocity * 10, -2.5, 2.5));
+    // un glissement = un projet max : un geste vif ou assez long passe au voisin, sinon on revient
+    const moved = carousel.pos - drag.startSlot;
+    const dir = Math.abs(carousel.velocity) > 0.02 ? Math.sign(carousel.velocity) : Math.abs(moved) > 0.3 ? Math.sign(moved) : 0;
+    carousel.target = drag.startSlot + dir;
     carousel.dragging = false;
     lenis?.start();
     stageEl.classList.remove('is-grabbing');
