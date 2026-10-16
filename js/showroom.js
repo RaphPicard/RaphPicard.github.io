@@ -458,14 +458,24 @@ const keyframes = () => {
   const aspect = window.innerWidth / window.innerHeight;
   const mobile = window.innerWidth < 768;
   const zs = Math.max(1, 8.2 / aspect / 11); // recule la caméra sur écran étroit pour que le panneau tienne
+  const focusCamZ = (mobile ? 9.2 : 9.4) * zs;
+  // Mobile : on remonte le panneau focus pour que son bord haut colle à la navbar (+ 12 px),
+  // ce qui libère de la place en bas pour la description
+  let focusY = 0.05;
+  if (mobile) {
+    const navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 64;
+    const halfH = focusCamZ * Math.tan(THREE.MathUtils.degToRad(30 / 2)); // demi-hauteur visible au plan z = 0
+    const panelHalf = (1.1 + 0.05) * (PANEL_H + 0.16) / 2; // échelle du panneau centré en focus
+    focusY = halfH * (1 - 2 * (navH + 12) / window.innerHeight) - panelHalf;  // changer le 12 si on veut que le bord haut du panneau colle à la navbar
+  }
   return [
     // 0 · Carrousel
     { camY: -0.6, camZ: 11 * zs, camRotZ: 0, fov: 30, spacing: 3.9, depth: 1.4, arc: 0.3, focus: 0,
-      focusX: mobile ? 0 : -1.45, focusY: mobile ? 0.95 : 0.05, focusTurn: mobile ? 0 : 0.3, focusScale: mobile ? 0.05 : 0.08,
+      focusX: mobile ? 0 : -1.45, focusY, focusTurn: mobile ? 0 : 0.3, focusScale: mobile ? 0.05 : 0.08,
       swirl: 0, ribbonGap: 1.55, ribbonX: mobile ? 0 : 1.6, ribbonY: mobile ? 1.2 : 0.45, pointer: 1, exitY: 0, light: 1, floor: 1, bloom: 1,
       uiC: 1, uiF: 0, uiW: 0, stage: 1 },
     // 1 · Focus sur le projet courant
-    { camY: 0, camZ: (mobile ? 9.2 : 9.4) * zs, camRotZ: 0, fov: 30, focus: 1, floor: 0.35, pointer: 0.8 },
+    { camY: 0, camZ: focusCamZ, camRotZ: 0, fov: 30, focus: 1, floor: 0.35, pointer: 0.8 },
     // 2 · Spirale de tous les projets
     { camY: -0.3, camZ: (mobile ? 11 : 13.5) * zs, camRotZ: -0.08, fov: 32, focus: 0, swirl: 1, pointer: 0.3, floor: 0.45 },
     // 3 · Sortie : les panneaux s'envolent, la grille classique apparaît
