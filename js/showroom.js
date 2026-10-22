@@ -88,7 +88,7 @@ const projects = $$('#projects-page .project-card')
       descFr: desc?.dataset.fr || desc?.dataset.en || desc?.textContent.trim() || '',
       stack: $$('.project-tech span', card).map((s) => s.textContent.trim()),
       github: link ? link.href : null,
-      color: COLORS[file] || '#3D7EFF',
+      color: COLORS[file] || '#ffffff',
     };
   })
   .filter((p) => p.file);
@@ -394,10 +394,9 @@ const inShowroom = (y = scroller.y()) => y < tops[LAST] - 2;
 
 // Pagination à la molette  : un cran = une étape, verrouillé pendant l'animation
 const pager = { locked: false, timer: null, hAccum: 0 };
-const goStep = (k) => {
+const goStep = (k, duration = k === LAST || k === 0 ? 1.4 : 1.15) => {
   k = clamp(k, 0, LAST);
   pager.locked = true;
-  const duration = k === LAST || k === 0 ? 1.4 : 1.15;
   scroller.to(tops[k], duration);
   clearTimeout(pager.timer);
   pager.timer = setTimeout(() => (pager.locked = false), duration * 1000 + 80);
@@ -637,17 +636,21 @@ const endDrag = (e) => {
     return;
   }
   if (drag.moved || !e) return;
-  // simple clic : panneau central → étape « focus », panneau latéral → on le centre
+  // simple clic : panneau central → étape « focus », panneau latéral → on le centre,
+  // panneau de la spirale (étape 2) → on le centre ET on remonte au focus sur lui
   const slot = pickSlot(e.clientX, e.clientY);
   if (slot === null) return;
   const off = Math.round(slotOffset(slot));
-  if (off === 0) { if (nearestStep(scroller.y()) === 0) goStep(1); }
+  const step = nearestStep(scroller.y());
+  if (step === 2) { carousel.target = Math.round(carousel.target) + off; goStep(1, 3); } // 3 s : plus posé qu'un cran de molette
+  else if (off === 0) { if (step === 0) goStep(1); }
   else carousel.target = Math.round(carousel.target) + off;
 };
 window.addEventListener('pointerup', endDrag);
 window.addEventListener('pointercancel', () => endDrag(null));
 
-// Curseur : main ouverte sur la scène, doigt sur le panneau central cliquable
+// Curseur : main ouverte sur la scène, doigt sur ce qui ouvre le focus
+// (panneau central du carrousel, ou n'importe quel panneau de la spirale)
 let hoverQueued = false;
 canvas.addEventListener('pointermove', (e) => {
   if (hoverQueued || carousel.dragging || e.pointerType !== 'mouse') return;
@@ -655,8 +658,9 @@ canvas.addEventListener('pointermove', (e) => {
   requestAnimationFrame(() => {
     hoverQueued = false;
     const slot = interactive ? pickSlot(e.clientX, e.clientY) : null;
-    const central = slot !== null && Math.round(slotOffset(slot)) === 0 && nearestStep(scroller.y()) === 0;
-    stageEl.classList.toggle('is-pointing', central);
+    const step = nearestStep(scroller.y());
+    const clickable = slot !== null && (step === 2 || (step === 0 && Math.round(slotOffset(slot)) === 0));
+    stageEl.classList.toggle('is-pointing', clickable);
   });
 });
 // #endregion
