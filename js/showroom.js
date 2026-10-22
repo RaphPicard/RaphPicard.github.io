@@ -393,10 +393,33 @@ const nearestStep = (y) => tops.reduce((best, t, k) => (Math.abs(t - y) < Math.a
 const inShowroom = (y = scroller.y()) => y < tops[LAST] - 2;
 
 // Pagination à la molette  : un cran = une étape, verrouillé pendant l'animation
-const pager = { locked: false, timer: null, hAccum: 0, hLocked: false, hTimer: null, hLast: 0, hFiredAt: 0, vLast: 0, vTime: 0, vArmed: true };
+//
+// Trackpad : un geste = UNE action (une étape à la verticale, un projet à l'horizontale). Après un déclenchement,
+// on ignore la suite du geste et son inertie, jusqu'à :
+//   - une pause : plus aucun événement wheel pendant `pause` ms ;
+//   - ou une vraie relance : le mouvement a nettement ralenti (au moins 6 deltas décroissants d'affilée, sous la
+//     moitié du pic : c'est la signature de l'inertie) puis repart fort.
+// Comparer un delta au précédent ne suffit pas : sur les trackpads Windows, les deltas d'un même geste oscillent
+// du simple au triple, et chaque oscillation relançait un projet (jusqu'à 6 d'un coup sur un long swipe).
+const gesture = (pause) => ({ pause, armed: true, last: 0, time: 0, peak: 0, low: Infinity, run: 0, decayed: false, firedAt: 0, accum: 0 });
+const gestureArmed = (g, mag, now) => {
+  if (now - g.time > g.pause) { g.armed = true; g.accum = 0; }
+  else if (!g.armed && g.decayed && now - g.firedAt > 250 && mag > 12 && mag > g.low * 2.5) { g.armed = true; g.accum = 0; }
+  g.run = mag <= g.last + 1 ? g.run + 1 : 0; // +1 : tolère les arrondis de l'inertie macOS
+  g.peak = Math.max(g.peak, mag);
+  if (g.run >= 6 && mag < g.peak * 0.5) g.decayed = true;
+  if (g.decayed) g.low = Math.min(g.low, mag);
+  g.last = mag; g.time = now;
+  return g.armed;
+};
+const disarm = (g) => {
+  Object.assign(g, { armed: false, peak: g.last, low: Infinity, run: 0, decayed: false, firedAt: performance.now(), accum: 0 });
+};
+
+const pager = { locked: false, timer: null, h: gesture(180), v: gesture(150) };
 const goStep = (k, duration = k === LAST || k === 0 ? 1.4 : 1.15) => {
   k = clamp(k, 0, LAST);
-  pager.locked = true; pager.vArmed = false;
+  pager.locked = true; disarm(pager.v);
   scroller.to(tops[k], duration);
   clearTimeout(pager.timer);
   pager.timer = setTimeout(() => (pager.locked = false), duration * 1000 + 80);
@@ -414,29 +437,21 @@ window.addEventListener('wheel', (e) => {
   // Glissement horizontal au trackpad = changer de projet (carrousel ou spirale)
   if (horizontal && inShowroom(y)) {
     e.preventDefault(); e.stopImmediatePropagation();
-    // Un swipe = un seul projet : on ignore la suite du geste (et l'inertie macOS)
-    // jusqu'à ce que les événements wheel cessent pendant 180 ms…
-    const mag = Math.abs(e.deltaX), now = performance.now();
-    clearTimeout(pager.hTimer);
-    pager.hTimer = setTimeout(() => { pager.hLocked = false; pager.hAccum = 0; pager.hLast = 0; }, 180);
-    // …ou qu'un nouveau swipe démarre : l'inertie ne fait que décroître, un nouveau geste fait remonter le delta
-    if (pager.hLocked && now - pager.hFiredAt > 200 && mag > 10 && mag > pager.hLast * 1.6) { pager.hLocked = false; pager.hAccum = 0; }
-    pager.hLast = mag;
-    if (pager.hLocked) return;
-    pager.hAccum += e.deltaX;
-    if (Math.abs(pager.hAccum) > 30) { pager.hAccum > 0 ? carousel.next() : carousel.prev(); pager.hAccum = 0; pager.hLocked = true; pager.hFiredAt = now; }
+    // Un swipe = un seul projet (voir gestureArmed)
+    const g = pager.h;
+    if (!gestureArmed(g, Math.abs(e.deltaX), performance.now())) return;
+    g.accum += e.deltaX;
+    if (Math.abs(g.accum) > 30) { g.accum > 0 ? carousel.next() : carousel.prev(); disarm(g); }
     return;
   }
   // Molette verticale dans le showroom (ou en remontant tout en haut de la grille) = étape suivante / précédente
   const atGridTop = y <= tops[LAST] + 4 && e.deltaY < 0;
   if (!inShowroom(y) && !atGridTop) return;
   e.preventDefault(); e.stopImmediatePropagation();
-  // Un geste = une étape : l'inertie du trackpad qui continue après l'animation ne doit pas relancer d'étape.
-  // On se réarme sur une pause (> 150 ms) ou sur un delta qui remonte nettement (= nouveau swipe).
-  const mag = Math.abs(e.deltaY), now = performance.now();
-  if (now - pager.vTime > 150 || (mag > 10 && mag > pager.vLast * 1.6)) pager.vArmed = true;
-  pager.vLast = mag; pager.vTime = now;
-  if (pager.locked || !pager.vArmed || mag < 4) return;
+  // Un geste = une étape : l'inertie du trackpad qui continue après l'animation ne doit pas relancer d'étape
+  const mag = Math.abs(e.deltaY);
+  const armed = gestureArmed(pager.v, mag, performance.now());
+  if (pager.locked || !armed || mag < 4) return;
   goStep(step + (e.deltaY > 0 ? 1 : -1));
 }, { passive: false, capture: true });
 
